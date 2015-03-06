@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PacMan")]
-[assembly: AssemblyProduct("PacMan")]
+[assembly: AssemblyTitle("PAC-Man")]
+[assembly: AssemblyProduct("PAC-Man")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8f8287e5-c0ec-4d2c-8f70-e7978b20cc35")]
+[assembly: Guid("9e115870-fd66-4003-a713-4ba22e0b7bde")]
 
 // Version information for an assembly consists of the following four values:
 //

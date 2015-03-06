@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 #endregion
 
-namespace PacMan
+namespace PAC_Man
 {
 #if WINDOWS || LINUX
     /// <summary>
