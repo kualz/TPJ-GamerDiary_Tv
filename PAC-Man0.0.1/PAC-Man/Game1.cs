@@ -23,6 +23,7 @@ namespace PAC_Man
             LostLife
         };
         bool down = false, up = false, left, right = false;
+        float speed = 5f;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D square;
@@ -135,7 +136,7 @@ namespace PAC_Man
 
             if (gamestate == GameState.running)
             {
-                if (lastHumanMove >= 0.5f / 10f)
+                if (lastHumanMove >= PacMan_Loc.Get_PacMan_Speed() / 10f)
                 {
                     lastHumanMove = 0;
                     if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -199,13 +200,16 @@ namespace PAC_Man
                     board[PacMan_Loc._Py(), PacMan_Loc._Px()] = 0;
                     PacMan_Loc.Set_Player_State();
                 }
-                if (PlayerStateTime >= 5f && PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+                if (PlayerStateTime >= 1f && PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
                 {
                     PlayerStateTime = 0;
                     PacMan_Loc.Set_Player_State();
+                    PacMan_Loc.Set_Player_State();
                 }
                 if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+                {
                     PlayerStateTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
                 Test_GameOver();
             }
             if (gamestate == GameState.LostLife)

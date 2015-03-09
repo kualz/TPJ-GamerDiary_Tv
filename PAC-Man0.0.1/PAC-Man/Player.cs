@@ -15,12 +15,27 @@ namespace PAC_Man
             empowered
         };
         public PlayerState state;
+        public float speed;
 
         public Player(int Px, int Py)
         {
             this.Px = Px;
             this.Py = Py;
             this.state = PlayerState.normal;
+            this.speed = 5f;
+
+        }
+        
+        public float Get_PacMan_Speed()
+        {
+            return this.speed;
+        }
+
+        public void Change_Speed()
+        {
+            if (speed == 5f)
+                speed = 2.5f;
+            else speed = 5f;
         }
 
         public void Set_Player_State()
