@@ -132,7 +132,6 @@ namespace PAC_Man
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             lastHumanMove += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            PlayerStateTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (gamestate == GameState.running)
             {
@@ -205,6 +204,8 @@ namespace PAC_Man
                     PlayerStateTime = 0;
                     PacMan_Loc.Set_Player_State();
                 }
+                if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+                    PlayerStateTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 Test_GameOver();
             }
             if (gamestate == GameState.LostLife)
