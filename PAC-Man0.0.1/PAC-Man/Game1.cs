@@ -293,6 +293,7 @@ namespace PAC_Man
         private bool CanGoUp()
         {
             if (board[PacMan_Loc._Py() - 1, PacMan_Loc._Px()] == 0 || 
+                board[PacMan_Loc._Py() - 1, PacMan_Loc._Px()] == 4 ||
                 board[PacMan_Loc._Py() - 1, PacMan_Loc._Px()] == 5)
                 return true;
             else return false;
@@ -300,6 +301,7 @@ namespace PAC_Man
         private bool CanGoDown()
         {
             if (board[PacMan_Loc._Py() + 1, PacMan_Loc._Px()] == 0 ||
+                board[PacMan_Loc._Py() + 1, PacMan_Loc._Px()] == 4 ||
                 board[PacMan_Loc._Py() + 1, PacMan_Loc._Px()] == 5)
                 return true;
             else return false;
