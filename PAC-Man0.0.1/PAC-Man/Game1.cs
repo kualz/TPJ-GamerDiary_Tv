@@ -142,7 +142,7 @@ namespace PAC_Man
                     if (Keyboard.GetState().IsKeyDown(Keys.Down))
                         if (CanGoDown())
                         {
-                            PacMan_Loc.Incrementa_PY();
+                            PacMan_Loc.Incrementa_PY();                          
                             down = true;
                             up = false;
                             left = false;
@@ -164,6 +164,10 @@ namespace PAC_Man
                         //    PacMan_Loc.Change_Py(29);
                         {
                             PacMan_Loc.Decrementa_PX();
+                            if (PacMan_Loc._Px() == 1 && PacMan_Loc._Py() == 14)
+                            {
+                                PacMan_Loc.change_Px(25);
+                            }                        
                             left = true;
                             up = false;
                             down = false;
@@ -175,6 +179,10 @@ namespace PAC_Man
                         //    PacMan_Loc.Change_Py(0);
                         {
                             PacMan_Loc.Incrementa_PX();
+                            if (PacMan_Loc._Px() == 26 && PacMan_Loc._Py() == 14)
+                            {
+                                PacMan_Loc.change_Px(2);
+                            }
                             right = true;
                             up = false;
                             down = false;
