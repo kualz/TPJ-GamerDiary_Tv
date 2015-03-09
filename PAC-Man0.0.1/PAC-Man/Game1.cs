@@ -23,7 +23,6 @@ namespace PAC_Man
             LostLife
         };
         bool down = false, up = false, left, right = false;
-        float speed = 5f;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D square;
@@ -40,8 +39,8 @@ namespace PAC_Man
         SpriteFont Score;
         Player PacMan_Loc = new Player(14, 11);
         int score = 0;
-        float lastHumanMove;
-        float PlayerStateTime;
+        double lastHumanMove;
+        double PlayerStateTime;
         byte[,] board = {{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                          {1,4,5,5,5,5,5,5,5,5,5,5,5,1,1,5,5,5,5,5,5,5,5,5,5,5,4,1},
                          {1,5,1,1,1,1,5,1,1,1,1,1,5,1,1,5,1,1,1,1,1,5,1,1,1,1,5,1},
@@ -132,11 +131,11 @@ namespace PAC_Man
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            lastHumanMove += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (gamestate == GameState.running)
             {
-                if (lastHumanMove >= PacMan_Loc.Get_PacMan_Speed() / 10f)
+                if (lastHumanMove >= (PacMan_Loc.Get_PacMan_Speed() / 5) / 10f)
                 {
                     lastHumanMove = 0;
                     if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -199,12 +198,13 @@ namespace PAC_Man
                     score += 10;
                     board[PacMan_Loc._Py(), PacMan_Loc._Px()] = 0;
                     PacMan_Loc.Set_Player_State();
+                    PacMan_Loc.Change_Speed();
                 }
-                if (PlayerStateTime >= 1f && PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+                if (PlayerStateTime >= 2f && PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
                 {
                     PlayerStateTime = 0;
                     PacMan_Loc.Set_Player_State();
-                    PacMan_Loc.Set_Player_State();
+                    PacMan_Loc.Change_Speed();
                 }
                 if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
                 {
