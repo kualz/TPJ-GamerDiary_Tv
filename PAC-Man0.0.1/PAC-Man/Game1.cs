@@ -29,6 +29,10 @@ namespace PAC_Man
         Texture2D PacMan;
         Texture2D PacManDown;
         Texture2D PacManLeft;
+        Texture2D PacMan_Empowered;
+        Texture2D PacManDown_Empowered;
+        Texture2D PacManLeft_Empowered;
+        Texture2D PacManUp_Empowered;
         Texture2D FOOD;
         Texture2D FOOD1;
         Texture2D PacManUp;
@@ -36,6 +40,7 @@ namespace PAC_Man
         Player PacMan_Loc = new Player(14, 11);
         int score = 0;
         float lastHumanMove;
+        float PlayerStateTime;
         byte[,] board = {{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                          {1,5,5,5,5,5,5,5,5,5,5,5,5,1,1,5,5,5,5,5,5,5,5,5,5,5,5,1},
                          {1,5,1,1,1,1,5,1,1,1,1,1,5,1,1,5,1,1,1,1,1,5,1,1,1,1,5,1},
@@ -99,6 +104,11 @@ namespace PAC_Man
             PacManUp = Content.Load<Texture2D>("PacManUp");
             PacManLeft = Content.Load<Texture2D>("PacManLeft");
 
+            PacMan_Empowered = Content.Load<Texture2D>("PacManRight_Empowered");
+            PacManDown_Empowered = Content.Load<Texture2D>("PacManDown_Empowered");
+            PacManUp_Empowered = Content.Load<Texture2D>("PacManUp_Empowered");
+            PacManLeft_Empowered = Content.Load<Texture2D>("PacManLeft_Empowered");
+
             FOOD = Content.Load<Texture2D>("Bitmap2");
             Score = Content.Load<SpriteFont>("MyFont");
             FOOD1 = Content.Load<Texture2D>("Bitmap3");
@@ -122,6 +132,8 @@ namespace PAC_Man
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             lastHumanMove += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            PlayerStateTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (gamestate == GameState.running)
             {
                 if (lastHumanMove >= 0.5f / 10f)
@@ -178,8 +190,14 @@ namespace PAC_Man
                 {
                     score += 10;
                     board[PacMan_Loc._Py(), PacMan_Loc._Px()] = 0;
+                    PacMan_Loc.Set_Player_State();
                 }
-                GameOver();
+                if (PlayerStateTime >= 5f && PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+                {
+                    PlayerStateTime = 0;
+                    PacMan_Loc.Set_Player_State();
+                }
+                Test_GameOver();
             }
             if (gamestate == GameState.LostLife)
             {
@@ -203,14 +221,30 @@ namespace PAC_Man
                     if (board[y, x] == 0)
                         if (PacMan_Loc._Px() == x && PacMan_Loc._Py() == y)
                         {
-                            if (down)
-                                spriteBatch.Draw(PacManDown, new Vector2(x * 20, y * 20), Color.White);
-                            if (up)
-                                spriteBatch.Draw(PacManUp, new Vector2(x * 20, y * 20), Color.White);
-                            if (left)
-                                spriteBatch.Draw(PacManLeft, new Vector2(x * 20, y * 20), Color.White);
-                            if (right)
+                            if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.normal)
+                            {
                                 spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
+                                if (down)
+                                    spriteBatch.Draw(PacManDown, new Vector2(x * 20, y * 20), Color.White);
+                                if (up)
+                                    spriteBatch.Draw(PacManUp, new Vector2(x * 20, y * 20), Color.White);
+                                if (left)
+                                    spriteBatch.Draw(PacManLeft, new Vector2(x * 20, y * 20), Color.White);
+                                if (right)
+                                    spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
+                            }
+                            if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+                            {
+                                spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
+                                if (down)
+                                    spriteBatch.Draw(PacManDown_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                                if (up)
+                                    spriteBatch.Draw(PacManUp_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                                if (left)
+                                    spriteBatch.Draw(PacManLeft_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                                if (right)
+                                    spriteBatch.Draw(PacMan_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                            }
                         }
                     if (board[y, x] == 1)
                         spriteBatch.Draw(square, new Vector2(x * 20, y * 20), Color.Blue);
@@ -262,7 +296,8 @@ namespace PAC_Man
                 return true;
             else return false;
         }
-        private void GameOver()
+
+        private void Test_GameOver()
         {
             int aux = 0;
             for (int x = 0; x < 28; x++)

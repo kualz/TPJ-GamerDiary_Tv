@@ -9,11 +9,29 @@ namespace PAC_Man
     {
         private int Px;
         private int Py;
+        public enum PlayerState
+        {
+            normal,
+            empowered
+        };
+        public PlayerState state;
 
         public Player(int Px, int Py)
         {
             this.Px = Px;
             this.Py = Py;
+            this.state = PlayerState.normal;
+        }
+
+        public void Set_Player_State()
+        {
+            if (state == PlayerState.normal)
+                state = PlayerState.empowered;
+            else state = PlayerState.normal;
+        }
+
+        public PlayerState Get_PlayerState(){
+            return state;
         }
 
         public void Change_Py(int Value)
