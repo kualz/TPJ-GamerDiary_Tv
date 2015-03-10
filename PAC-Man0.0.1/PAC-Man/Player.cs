@@ -16,6 +16,7 @@ namespace PAC_Man
         };
         public PlayerState state;
         public double speed;
+        private int lifes;
 
         public Player(int Px, int Py)
         {
@@ -23,8 +24,19 @@ namespace PAC_Man
             this.Py = Py;
             this.state = PlayerState.normal;
             this.speed = 5;
+            this.lifes = 0;
         }
         
+        public int Get_PacManLifes()
+        {
+            return this.lifes;
+        }
+
+        public void SetLife(int Number)
+        {
+            lifes += (Number);
+        }
+
         public double Get_PacMan_Speed()
         {
             return this.speed;

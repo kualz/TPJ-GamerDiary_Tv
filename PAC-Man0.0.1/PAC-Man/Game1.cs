@@ -137,8 +137,8 @@ namespace PAC_Man
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            gamestate = GameState.LostLife;
             lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
-
             if (gamestate == GameState.running)
             {
                 if (lastHumanMove >= (PacMan_Loc.Get_PacMan_Speed() / 5) / 10f)
@@ -238,6 +238,8 @@ namespace PAC_Man
                 board = newBoard;
                 score = 0;
                 ResetElapsedTime();
+                if(PacMan_Loc.Get_PacManLifes() == 0)
+                    gamestate = GameState.gameOver;
             }
             base.Update(gameTime); 
         }
@@ -246,12 +248,14 @@ namespace PAC_Man
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-            if(PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
-            {
-                
+
+            if (gamestate == GameState.gameOver)
+                spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
+
+            if(PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)                
                 spriteBatch.DrawString(Lifes, String.Format("time: {0:0.00}", 2f - PlayerStateTime), new Vector2(130, 620), Color.White);
-            }
-            
+
+            spriteBatch.DrawString(Lifes, "Vidas: " + PacMan_Loc.Get_PacManLifes(), new Vector2(460, 620), Color.White);
             spriteBatch.DrawString(Score, "Score: " + score, new Vector2(10, 620), Color.White);
             for (int x = 0; x < 28; x++)
                 for (int y = 0; y < 31; y++)
@@ -294,7 +298,7 @@ namespace PAC_Man
                         spriteBatch.Draw(FOOD1, new Vector2(x * 20, y * 20), Color.White);
                 }
             if (gamestate == GameState.Win)
-            {
+            {                
                 spriteBatch.DrawString(Score, "Good Job", new Vector2(220, 260), Color.White);
                 spriteBatch.DrawString(Score, "Score: " + score, new Vector2(220, 275), Color.White);
                 UnloadContent();
