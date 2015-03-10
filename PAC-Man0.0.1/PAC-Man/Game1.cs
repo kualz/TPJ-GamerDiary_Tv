@@ -56,7 +56,7 @@ namespace PAC_Man
                          {1,1,1,1,1,1,5,1,1,0,0,0,0,0,0,0,0,0,0,1,1,5,1,1,1,1,1,1},
                          {1,1,1,1,1,1,5,1,1,0,1,1,1,2,2,1,1,1,0,1,1,5,1,1,1,1,1,1},
                          {1,1,1,1,1,1,5,1,1,0,1,2,2,2,2,2,2,1,0,1,1,5,1,1,1,1,1,1},
-                         {3,0,0,0,0,0,5,0,0,0,1,2,2,2,2,2,2,1,0,0,0,5,0,0,0,0,0,3},
+                         {0,0,0,0,0,0,5,0,0,0,1,2,2,2,2,2,2,1,0,0,0,5,0,0,0,0,0,0},
                          {1,1,1,1,1,1,5,1,1,0,1,2,2,2,2,2,2,1,0,1,1,5,1,1,1,1,1,1},
                          {1,1,1,1,1,1,5,1,1,0,1,1,1,1,1,1,1,1,0,1,1,5,1,1,1,1,1,1},
                          {1,1,1,1,1,1,5,1,1,0,0,0,0,0,0,0,0,0,0,1,1,5,1,1,1,1,1,1},
@@ -145,16 +145,18 @@ namespace PAC_Man
                 {
                     lastHumanMove = 0;
                     if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    {
                         if (CanGoDown())
                         {
-                            PacMan_Loc.Incrementa_PY();                          
+                            PacMan_Loc.Incrementa_PY();
                             down = true;
                             up = false;
                             left = false;
                             right = false;
                         }
-
-                    if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    {
                         if (CanGoUp())
                         {
                             PacMan_Loc.Decrementa_PY();
@@ -163,36 +165,41 @@ namespace PAC_Man
                             left = false;
                             right = false;
                         }
-                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    {
                         if (CanGoleft())
                         //if (board[PacMan_Loc._Py(), PacMan_Loc._Px()] == 3)
                         //    PacMan_Loc.Change_Py(29);
                         {
                             PacMan_Loc.Decrementa_PX();
-                            if (PacMan_Loc._Px() == 1 && PacMan_Loc._Py() == 14)
+                            if (PacMan_Loc._Px() == 0 && PacMan_Loc._Py() == 14)
                             {
-                                PacMan_Loc.change_Px(25);
-                            }                        
+                                PacMan_Loc.change_Px(26);
+                            }
                             left = true;
                             up = false;
                             down = false;
                             right = false;
                         }
-                    if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    {
                         if (CanGoRight())
                         //if (board[PacMan_Loc._Py(), PacMan_Loc._Px()] == 3)
                         //    PacMan_Loc.Change_Py(0);
                         {
                             PacMan_Loc.Incrementa_PX();
-                            if (PacMan_Loc._Px() == 26 && PacMan_Loc._Py() == 14)
+                            if (PacMan_Loc._Px() == 27 && PacMan_Loc._Py() == 14)
                             {
-                                PacMan_Loc.change_Px(2);
+                                PacMan_Loc.change_Px(1);
                             }
                             right = true;
                             up = false;
                             down = false;
                             left = false;
                         }
+                    }
                 }
                 if (board[PacMan_Loc._Py(), PacMan_Loc._Px()] == 5)
                 {
@@ -241,7 +248,8 @@ namespace PAC_Man
             spriteBatch.Begin();
             if(PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
             {
-                spriteBatch.DrawString(Lifes, "Time: " + (2 - (float)PlayerStateTime), new Vector2(110, 620), Color.White);
+                
+                spriteBatch.DrawString(Lifes, String.Format("time: {0:0.00}", 2f - PlayerStateTime), new Vector2(130, 620), Color.White);
             }
             
             spriteBatch.DrawString(Score, "Score: " + score, new Vector2(10, 620), Color.White);
@@ -336,6 +344,8 @@ namespace PAC_Man
                 for (int y = 0; y < 31; y++)
                 {
                     if (board[y, x] == 5)
+                        aux++;
+                    if (board[y, x] == 4)
                         aux++;
                 }
             if (aux != 0)
