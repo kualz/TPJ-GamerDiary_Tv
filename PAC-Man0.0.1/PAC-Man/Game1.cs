@@ -37,6 +37,7 @@ namespace PAC_Man
         Texture2D FOOD1;
         Texture2D PacManUp;
         SpriteFont Score;
+        SpriteFont Lifes;
         Player PacMan_Loc = new Player(14, 11);
         int score = 0;
         double lastHumanMove;
@@ -112,11 +113,16 @@ namespace PAC_Man
             FOOD = Content.Load<Texture2D>("Bitmap2");
             Score = Content.Load<SpriteFont>("MyFont");
             FOOD1 = Content.Load<Texture2D>("Bitmap3");
+            Lifes = Content.Load<SpriteFont>("MyFont");
         }
 
         
         protected override void UnloadContent()
         {
+            PacMan_Empowered.Dispose();
+            PacManDown_Empowered.Dispose();
+            PacManUp_Empowered.Dispose();
+            PacManLeft_Empowered.Dispose();
             square.Dispose();
             PacMan.Dispose();
             PacManDown.Dispose();
@@ -195,10 +201,16 @@ namespace PAC_Man
                 }
                 if (board[PacMan_Loc._Py(), PacMan_Loc._Px()] == 4)
                 {
+                    
                     score += 10;
                     board[PacMan_Loc._Py(), PacMan_Loc._Px()] = 0;
-                    PacMan_Loc.Set_Player_State();
-                    PacMan_Loc.Change_Speed();
+                    if (PacMan_Loc.Get_PlayerState() != Player.PlayerState.empowered)
+                    {
+                        PacMan_Loc.Set_Player_State();
+                        PacMan_Loc.Change_Speed();
+                    }
+                    else
+                        PlayerStateTime = 0;
                 }
                 if (PlayerStateTime >= 2f && PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
                 {
@@ -217,6 +229,8 @@ namespace PAC_Man
                 PacMan_Loc.change_Px(14);
                 PacMan_Loc.Change_Py(11);
                 board = newBoard;
+                score = 0;
+                ResetElapsedTime();
             }
             base.Update(gameTime); 
         }
@@ -225,8 +239,11 @@ namespace PAC_Man
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-
-
+            if(PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+            {
+                spriteBatch.DrawString(Lifes, "Time: " + (2 - (float)PlayerStateTime), new Vector2(110, 620), Color.White);
+            }
+            
             spriteBatch.DrawString(Score, "Score: " + score, new Vector2(10, 620), Color.White);
             for (int x = 0; x < 28; x++)
                 for (int y = 0; y < 31; y++)
