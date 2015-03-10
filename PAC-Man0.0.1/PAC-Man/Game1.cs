@@ -137,7 +137,6 @@ namespace PAC_Man
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            gamestate = GameState.LostLife;
             lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
             if (gamestate == GameState.running)
             {

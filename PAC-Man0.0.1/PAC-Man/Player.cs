@@ -24,7 +24,7 @@ namespace PAC_Man
             this.Py = Py;
             this.state = PlayerState.normal;
             this.speed = 5;
-            this.lifes = 0;
+            this.lifes = 2;
         }
         
         public int Get_PacManLifes()
