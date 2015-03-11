@@ -100,7 +100,7 @@ namespace PAC_Man
         protected override void LoadContent()
         {
 
-
+            novopac = new objectpacman();
             novopac.Load(Content);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -250,7 +250,7 @@ namespace PAC_Man
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-            novopac.Draw(spriteBatch);
+
             if (gamestate == GameState.gameOver)
                 spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
 
@@ -262,34 +262,35 @@ namespace PAC_Man
             for (int x = 0; x < 28; x++)
                 for (int y = 0; y < 31; y++)
                 {
-                    if (board[y, x] == 0)
-                        if (PacMan_Loc._Px() == x && PacMan_Loc._Py() == y)
-                        {
-                            if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.normal)
-                            {
-                                spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
-                                if (down)
-                                    spriteBatch.Draw(PacManDown, new Vector2(x * 20, y * 20), Color.White);
-                                if (up)
-                                    spriteBatch.Draw(PacManUp, new Vector2(x * 20, y * 20), Color.White);
-                                if (left)
-                                    spriteBatch.Draw(PacManLeft, new Vector2(x * 20, y * 20), Color.White);
-                                if (right)
-                                    spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
-                            }
-                            if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
-                            {
-                                spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
-                                if (down)
-                                    spriteBatch.Draw(PacManDown_Empowered, new Vector2(x * 20, y * 20), Color.White);
-                                if (up)
-                                    spriteBatch.Draw(PacManUp_Empowered, new Vector2(x * 20, y * 20), Color.White);
-                                if (left)
-                                    spriteBatch.Draw(PacManLeft_Empowered, new Vector2(x * 20, y * 20), Color.White);
-                                if (right)
-                                    spriteBatch.Draw(PacMan_Empowered, new Vector2(x * 20, y * 20), Color.White);
-                            }
-                        }
+                    novopac.Draw(spriteBatch);
+                    //if (board[y, x] == 0)
+                    //    if (PacMan_Loc._Px() == x && PacMan_Loc._Py() == y)
+                    //    {
+                    //        if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.normal)
+                    //        {
+                    //            spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (down)
+                    //                spriteBatch.Draw(PacManDown, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (up)
+                    //                spriteBatch.Draw(PacManUp, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (left)
+                    //                spriteBatch.Draw(PacManLeft, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (right)
+                    //                spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
+                    //        }
+                    //        if (PacMan_Loc.Get_PlayerState() == Player.PlayerState.empowered)
+                    //        {
+                    //            spriteBatch.Draw(PacMan, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (down)
+                    //                spriteBatch.Draw(PacManDown_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (up)
+                    //                spriteBatch.Draw(PacManUp_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (left)
+                    //                spriteBatch.Draw(PacManLeft_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                    //            if (right)
+                    //                spriteBatch.Draw(PacMan_Empowered, new Vector2(x * 20, y * 20), Color.White);
+                    //        }
+                    //    }
                     if (board[y, x] == 1)
                         spriteBatch.Draw(square, new Vector2(x * 20, y * 20), Color.Blue);
                     if (board[y, x] == 2)
