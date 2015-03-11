@@ -23,8 +23,10 @@ namespace PAC_Man
             LostLife
         };
         bool down = false, up = false, left, right = false;
+        objectpacman novopac;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D pac;
         Texture2D square;
         Texture2D PacMan;
         Texture2D PacManDown;
@@ -97,6 +99,10 @@ namespace PAC_Man
         
         protected override void LoadContent()
         {
+
+
+            novopac.Load(Content);
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             square = Content.Load<Texture2D>("square");
 
@@ -140,66 +146,63 @@ namespace PAC_Man
             lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
             if (gamestate == GameState.running)
             {
-                if (lastHumanMove >= (PacMan_Loc.Get_PacMan_Speed() / 5) / 10f)
-                {
-                    lastHumanMove = 0;
-                    if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                    {
-                        if (CanGoDown())
-                        {
-                            PacMan_Loc.Incrementa_PY();
-                            down = true;
-                            up = false;
-                            left = false;
-                            right = false;
-                        }
-                    }
-                    else if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                    {
-                        if (CanGoUp())
-                        {
-                            PacMan_Loc.Decrementa_PY();
-                            up = true;
-                            down = false;
-                            left = false;
-                            right = false;
-                        }
-                    }
-                    else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                    {
-                        if (CanGoleft())
-                        //if (board[PacMan_Loc._Py(), PacMan_Loc._Px()] == 3)
-                        //    PacMan_Loc.Change_Py(29);
-                        {
-                            PacMan_Loc.Decrementa_PX();
-                            if (PacMan_Loc._Px() == 0 && PacMan_Loc._Py() == 14)
-                            {
-                                PacMan_Loc.change_Px(26);
-                            }
-                            left = true;
-                            up = false;
-                            down = false;
-                            right = false;
-                        }
-                    }
-                    else if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                    {
-                        if (CanGoRight())
-                        //if (board[PacMan_Loc._Py(), PacMan_Loc._Px()] == 3)
-                        //    PacMan_Loc.Change_Py(0);
-                        {
-                            PacMan_Loc.Incrementa_PX();
-                            if (PacMan_Loc._Px() == 27 && PacMan_Loc._Py() == 14)
-                            {
-                                PacMan_Loc.change_Px(1);
-                            }
-                            right = true;
-                            up = false;
-                            down = false;
-                            left = false;
-                        }
-                    }
-                }
+                novopac.Update(gameTime);
+                //if (lastHumanMove >= (PacMan_Loc.Get_PacMan_Speed() / 5) / 10f)
+                //{
+                //    lastHumanMove = 0;
+                //    if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                //    {
+                //        if (CanGoDown())
+                //        {
+                //            PacMan_Loc.Incrementa_PY();
+                //            down = true;
+                //            up = false;
+                //            left = false;
+                //            right = false;
+                //        }
+                //    }
+                //    else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                //    {
+                //        if (CanGoUp())
+                //        {
+                //            PacMan_Loc.Decrementa_PY();
+                //            up = true;
+                //            down = false;
+                //            left = false;
+                //            right = false;
+                //        }
+                //    }
+                //    else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                //    {
+                //        if (CanGoleft())                     
+                //        {
+                //            PacMan_Loc.Decrementa_PX();
+                //            if (PacMan_Loc._Px() == 0 && PacMan_Loc._Py() == 14)
+                //            {
+                //                PacMan_Loc.change_Px(26);
+                //            }
+                //            left = true;
+                //            up = false;
+                //            down = false;
+                //            right = false;
+                //        }
+                //    }
+                //    else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                //    {
+                //        if (CanGoRight())                      
+                //        {
+                //            PacMan_Loc.Incrementa_PX();
+                //            if (PacMan_Loc._Px() == 27 && PacMan_Loc._Py() == 14)
+                //            {
+                //                PacMan_Loc.change_Px(1);
+                //            }
+                //            right = true;
+                //            up = false;
+                //            down = false;
+                //            left = false;
+                //        }
+                //    }
+                //}
                 if (board[PacMan_Loc._Py(), PacMan_Loc._Px()] == 5)
                 {
                     score += 2;
@@ -247,7 +250,7 @@ namespace PAC_Man
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-
+            novopac.Draw(spriteBatch);
             if (gamestate == GameState.gameOver)
                 spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
 
