@@ -13,15 +13,16 @@ namespace PAC_Man
     {
         
         public Vector2 position;
-        public float x, y;
+        public float x;
+        public float y;
         private Texture2D texture;
         private float speed;
 
         public objectpacman() 
         {
             speed = 100f;
-            x = 0;
-            y = 0;
+            x = 20;
+            y = 20;
             position = new Vector2(x, y);
         }
 
@@ -33,21 +34,33 @@ namespace PAC_Man
         public void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Collisions.canGoleft((int)x, (int)y))
             {
-                x -= speed * deltaTime;
+                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                {
+                    x -= speed * deltaTime;
+                }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Collisions.canGoUp((int)x, (int)y))
             {
-                y -= speed * deltaTime;
+                if (Keyboard.GetState().IsKeyDown(Keys.W))
+                {
+                    y -= speed * deltaTime;
+                }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Collisions.canGoRight((int)x, (int)y))
             {
-                x += speed * deltaTime;
+                if (Keyboard.GetState().IsKeyDown(Keys.D))
+                {
+                    x += speed * deltaTime;
+                }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Collisions.canGoDown((int)x, (int)y))
             {
-                y += speed * deltaTime;
+                if (Keyboard.GetState().IsKeyDown(Keys.S))
+                {
+                    y += speed * deltaTime;
+                }
             }
 
             position = new Vector2(x, y);
