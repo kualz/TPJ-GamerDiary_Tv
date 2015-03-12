@@ -34,36 +34,40 @@ namespace PAC_Man
         public void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (Collisions.canGoleft((int)x, (int)y))
+
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                if (Collisions.canGoleft((int)(x + 0.5), (int)(y + 0.5)))
                 {
                     x -= speed * deltaTime;
                 }
             }
-            if (Collisions.canGoUp((int)x, (int)y))
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.W))
+                if (Collisions.canGoUp((int)(x + 0.5), (int)(y + 0.5)))
                 {
                     y -= speed * deltaTime;
                 }
             }
-            if (Collisions.canGoRight((int)x, (int)y))
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.D))
+                if (Collisions.canGoRight((int)(x + 0.5), (int)(y + 0.5)))
                 {
                     x += speed * deltaTime;
                 }
             }
-            if (Collisions.canGoDown((int)x, (int)y))
+
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.S))
+                if (Collisions.canGoDown((int)(x + 0.5), (int)(y + 0.5)))
                 {
                     y += speed * deltaTime;
                 }
             }
 
             position = new Vector2(x, y);
+            deltaTime = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)

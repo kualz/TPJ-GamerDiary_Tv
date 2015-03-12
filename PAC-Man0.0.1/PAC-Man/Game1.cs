@@ -142,9 +142,8 @@ namespace PAC_Man
                 Exit();
             lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
             if (gamestate == GameState.running)
-            {
-                novopac.Update(gameTime);
-                
+            {   
+                novopac.Update(gameTime);     
             }
        
             base.Update(gameTime); 
@@ -161,8 +160,7 @@ namespace PAC_Man
             for (int x = 0; x < 28; x++)
                 for (int y = 0; y < 31; y++)
                 {
-                    novopac.Draw(spriteBatch);
-                    
+                    novopac.Draw(spriteBatch);          
                     if (board[y, x] == 1)
                         spriteBatch.Draw(square, new Vector2(x * 20, y * 20), Color.Blue);
                     if (board[y, x] == 2)
