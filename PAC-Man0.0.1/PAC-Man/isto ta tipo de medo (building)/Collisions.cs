@@ -7,8 +7,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PAC_Man
 {
-    class Collisions : Game1
+    class Collisions : Room
     {
+
+        private Rectangle parent;
+
+
+        public Collisions(Rectangle parent, int x, int y, int witdth, int height)
+        {
+            parent = new Rectangle(x, y, witdth, height);
+        }
+
+
+
+
         static public bool canGoUp(int _X, int _Y)
         { 
             if (board[((_Y - 20) / 20), (_X / 20)] != 1)
