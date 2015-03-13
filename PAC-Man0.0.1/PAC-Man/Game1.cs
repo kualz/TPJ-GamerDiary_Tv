@@ -25,9 +25,6 @@ namespace PAC_Man
         objectpacman novopac;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D FOOD;
-        Texture2D FOOD1;
-        Texture2D square;
         Texture2D PacMan;
         Texture2D PacManDown;
         Texture2D PacManLeft;
@@ -40,7 +37,7 @@ namespace PAC_Man
         SpriteFont Lifes;
         int score = 0;
         double lastHumanMove;
-        Room room = new Room();
+        Room room;
        
         public Game1()
             : base()
@@ -62,13 +59,13 @@ namespace PAC_Man
         
         protected override void LoadContent()
         {
-            room.InicializarColisoes();
+            room = new Room();
+            room.Load(Content);
 
             novopac = new objectpacman();
             novopac.Load(Content);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            square = Content.Load<Texture2D>("square");
 
             PacMan = Content.Load<Texture2D>("Bitmap1");
             PacManDown = Content.Load<Texture2D>("PacManDown");
@@ -80,9 +77,7 @@ namespace PAC_Man
             PacManUp_Empowered = Content.Load<Texture2D>("PacManUp_Empowered");
             PacManLeft_Empowered = Content.Load<Texture2D>("PacManLeft_Empowered");
 
-            FOOD = Content.Load<Texture2D>("Bitmap2");
             Score = Content.Load<SpriteFont>("MyFont");
-            FOOD1 = Content.Load<Texture2D>("Bitmap3");
             Lifes = Content.Load<SpriteFont>("MyFont");
         }
 
@@ -93,13 +88,10 @@ namespace PAC_Man
             PacManDown_Empowered.Dispose();
             PacManUp_Empowered.Dispose();
             PacManLeft_Empowered.Dispose();
-            square.Dispose();
             PacMan.Dispose();
             PacManDown.Dispose();
             PacManLeft.Dispose();
             PacManUp.Dispose();
-            FOOD.Dispose();
-            FOOD1.Dispose();
         }
 
         
@@ -124,7 +116,8 @@ namespace PAC_Man
                 spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
             spriteBatch.DrawString(Score, "Score: " + score, new Vector2(10, 620), Color.White);
 
-            room.Draw(spriteBatch, square, FOOD, FOOD1);
+            room.Draw(spriteBatch);
+
             novopac.Draw(spriteBatch);  
             
 
