@@ -17,12 +17,6 @@ namespace PAC_Man
         //    else return false;
         //}
 
-        //static public bool canGoDown(int _X, int _Y)
-        //{
-        //    if (board[((_Y + 20) / 20), (_X / 20)] != 1)
-        //        return true;
-        //    else return false;
-        //}
 
         //static public bool canGoleft(int _X, int _Y)
         //{

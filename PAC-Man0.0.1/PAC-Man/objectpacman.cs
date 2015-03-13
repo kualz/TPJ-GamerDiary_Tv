@@ -26,7 +26,7 @@ namespace PAC_Man
         private float speed;
         private int TextureSize = 20;
         private Rectangle Rec;
-        private Room novo = new Room();
+        private Room novo;
 
         public objectpacman() 
         {
@@ -64,37 +64,38 @@ namespace PAC_Man
 
         public void Update(GameTime gameTime)
         {
+            novo = new Room();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                if (novo.IsColliding(Rec) == false)
-                {
+                //if (novo.IsColliding(Rec) == false)
+                //{
                     PacMove = PacManState.GoingLeft;
                     x -= speed * deltaTime;
-                }
+                //}
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                if (novo.IsColliding(Rec) == false)
-                {
+                //if (novo.IsColliding(Rec) == false)
+                //{
                     PacMove = PacManState.GoingUp;
                     y -= speed * deltaTime;
-                }
+                //}
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                if (novo.IsColliding(Rec) == false)
-                {
+                //if (novo.IsColliding(Rec) == false)
+                //{
                     PacMove = PacManState.GoingRight;
                     x += speed * deltaTime;
-                }
+                //}
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                if (novo.IsColliding(Rec) == false)
+                if (novo.IsColliding(x, y) == true)
                 {
                     PacMove = PacManState.GoingDown;
                     y += speed * deltaTime;
@@ -102,7 +103,7 @@ namespace PAC_Man
             }
 
             position = new Vector2(x, y);
-            Rec = new Rectangle((int)(x + 0.5), (int)(y + 0.5), TextureSize, TextureSize);
+            Rec = new Rectangle((int)(x), (int)(y), TextureSize, TextureSize);
             deltaTime = 0;
         }
 

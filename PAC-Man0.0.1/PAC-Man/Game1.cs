@@ -61,6 +61,7 @@ namespace PAC_Man
         {
             room = new Room();
             room.Load(Content);
+            room.InicializarColisoes();
 
             novopac = new objectpacman();
             novopac.Load(Content);
@@ -117,7 +118,6 @@ namespace PAC_Man
             spriteBatch.DrawString(Score, "Score: " + score, new Vector2(10, 620), Color.White);
 
             room.Draw(spriteBatch);
-
             novopac.Draw(spriteBatch);  
             
 
