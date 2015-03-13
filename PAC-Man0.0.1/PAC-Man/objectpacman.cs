@@ -17,6 +17,9 @@ namespace PAC_Man
         public float y;
         private Texture2D texture;
         private float speed;
+        private int TextureSize = 20;
+        private Rectangle Rec;
+        Room novo = new Room();
 
         public objectpacman() 
         {
@@ -37,36 +40,29 @@ namespace PAC_Man
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                if (Collisions.canGoleft((int)(x + 0.5), (int)(y + 0.5)))
-                {
+                if(novo.IsColliding(Rec) == false)
                     x -= speed * deltaTime;
-                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                if (Collisions.canGoUp((int)(x + 0.5), (int)(y + 0.5)))
-                {
+                if (novo.IsColliding(Rec) == false)
                     y -= speed * deltaTime;
-                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                if (Collisions.canGoRight((int)(x + 0.5), (int)(y + 0.5)))
-                {
+                if (novo.IsColliding(Rec) == false)
                     x += speed * deltaTime;
-                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                if (Collisions.canGoDown((int)(x + 0.5), (int)(y + 0.5)))
-                {
+                if (novo.IsColliding(Rec) == false)
                     y += speed * deltaTime;
-                }
             }
 
             position = new Vector2(x, y);
+            Rec = new Rectangle((int)(x + 0.5), (int)(y + 0.5), TextureSize, TextureSize);
             deltaTime = 0;
         }
 
@@ -75,6 +71,5 @@ namespace PAC_Man
             spriteBatch.Draw(texture, position, Color.White);
         }
     }
-
 }
 

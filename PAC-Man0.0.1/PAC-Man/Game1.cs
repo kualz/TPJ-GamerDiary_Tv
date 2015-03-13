@@ -25,6 +25,8 @@ namespace PAC_Man
         objectpacman novopac;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D FOOD;
+        Texture2D FOOD1;
         Texture2D square;
         Texture2D PacMan;
         Texture2D PacManDown;
@@ -33,25 +35,21 @@ namespace PAC_Man
         Texture2D PacManDown_Empowered;
         Texture2D PacManLeft_Empowered;
         Texture2D PacManUp_Empowered;
-        Texture2D FOOD;
-        Texture2D FOOD1;
         Texture2D PacManUp;
         SpriteFont Score;
         SpriteFont Lifes;
         int score = 0;
         double lastHumanMove;
-        byte[,] board = Room.RetornoRoom();
-        byte[,] newBoard = new byte[28, 31];
+        Room room = new Room();
        
         public Game1()
             : base()
-        {
+        {       
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = 650;
             graphics.PreferredBackBufferWidth = 560;
             Content.RootDirectory = "Content";
-            newBoard = board;
         }
 
         
@@ -64,6 +62,7 @@ namespace PAC_Man
         
         protected override void LoadContent()
         {
+            room.InicializarColisoes();
 
             novopac = new objectpacman();
             novopac.Load(Content);
@@ -112,8 +111,7 @@ namespace PAC_Man
             if (gamestate == GameState.running)
             {   
                 novopac.Update(gameTime);     
-            }
-       
+            }       
             base.Update(gameTime); 
         }
         
@@ -125,19 +123,12 @@ namespace PAC_Man
             if (gamestate == GameState.gameOver)
                 spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
             spriteBatch.DrawString(Score, "Score: " + score, new Vector2(10, 620), Color.White);
-            for (int x = 0; x < 28; x++)
-                for (int y = 0; y < 31; y++)
-                {
-                    novopac.Draw(spriteBatch);          
-                    if (board[y, x] == 1)
-                        spriteBatch.Draw(square, new Vector2(x * 20, y * 20), Color.Blue);
-                    if (board[y, x] == 2)
-                        spriteBatch.Draw(square, new Vector2(x * 20, y * 20), Color.White);
-                    if (board[y, x] == 4)
-                        spriteBatch.Draw(FOOD, new Vector2(x * 20, y * 20), Color.White);
-                    if (board[y, x] == 5)
-                        spriteBatch.Draw(FOOD1, new Vector2(x * 20, y * 20), Color.White);
-                }
+
+            room.Draw(spriteBatch, square, FOOD, FOOD1);
+            novopac.Draw(spriteBatch);  
+            
+
+
             if (gamestate == GameState.Win)
             {                
                 spriteBatch.DrawString(Score, "Good Job", new Vector2(220, 260), Color.White);

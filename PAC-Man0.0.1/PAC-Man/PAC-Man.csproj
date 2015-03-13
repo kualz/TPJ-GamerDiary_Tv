@@ -50,12 +50,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Collisions.cs" />
+    <Compile Include="isto ta tipo de medo %28building%29\Collisions.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="objectpacman.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Room.cs" />
+    <Compile Include="isto ta tipo de medo %28building%29\Room.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
