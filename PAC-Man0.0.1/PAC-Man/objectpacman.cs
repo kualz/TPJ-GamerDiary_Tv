@@ -24,21 +24,21 @@ namespace PAC_Man
         public float y;
         private Texture2D texture;
         private float speed;
-        private int TextureSize = 20;
+        private int TextureSize = 19;
         private Rectangle Rec;
         private Room novo;
 
         public objectpacman() 
         {
             speed = 100f;
-            x = 20;
-            y = 20;
+            x = 250;
+            y = 342;
             position = new Vector2(x, y);
         }
 
         public void Load(ContentManager content)
         {
-            texture = content.Load<Texture2D>("Monster1_bitt.bmp");
+            texture = content.Load<Texture2D>("Bitmap1.bmp");
         }
 
         public int GetPacstate()
