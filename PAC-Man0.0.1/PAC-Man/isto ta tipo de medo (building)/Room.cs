@@ -86,11 +86,18 @@ namespace PAC_Man
                     }
         }
 
-        public bool IsColliding(float _X, float _Y)
+        public bool IsColliding(int _X, int _Y)
         {
-            if (board[((_Y + 20) / 20), (_X / 20)] != 1)
-                return true;
-            else return false;
+            int rx = _X % 20, ry = _Y % 20, rax = _X / 20, ray = _Y / 20;
+            bool colliding = false;
+
+            if (board[ray, rax] == 1) colliding = true;
+            if (rx != 0 && board[ray, rax + 1] == 1) colliding = true;
+            if (ry != 0 && board[ray + 1, rax] == 1) colliding = true;
+            if (ry != 0 && rx != 0 && board[ray + 1, rax + 1] == 1) colliding = true;
+
+            return colliding;
+
         }
     }
 }

@@ -69,36 +69,40 @@ namespace PAC_Man
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                //if (novo.IsColliding(Rec) == false)
-                //{
+                float nx = x - speed * deltaTime;
+                if (novo.IsColliding((int)nx, (int)y) == false)
+                {
                     PacMove = PacManState.GoingLeft;
-                    x -= speed * deltaTime;
-                //}
+                    x = nx;
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                //if (novo.IsColliding(Rec) == false)
-                //{
+                float ny = y - speed * deltaTime;
+                if (novo.IsColliding((int)x, (int)ny) == false)
+                {
                     PacMove = PacManState.GoingUp;
-                    y -= speed * deltaTime;
-                //}
+                    y = ny ;
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                //if (novo.IsColliding(Rec) == false)
-                //{
+                float nx = x + speed * deltaTime;
+                if (novo.IsColliding((int)nx, (int)y) == false)
+                {
                     PacMove = PacManState.GoingRight;
-                    x += speed * deltaTime;
-                //}
+                    x = nx;
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                if (novo.IsColliding(x, y) == true)
+                float ny = y + speed * deltaTime;
+                if (novo.IsColliding((int)x, (int)ny) == false)
                 {
                     PacMove = PacManState.GoingDown;
-                    y += speed * deltaTime;
+                    y = ny;
                 }
             }
 
