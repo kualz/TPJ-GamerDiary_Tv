@@ -1,35 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace PAC_Man
 {
-    class Collisions : Room
+    class Collisions
     {
+        public static List<Rectangle> Rectangles { get; protected set; }
 
-        //static public bool canGoUp(int _X, int _Y)
-        //{ 
-        //    if (board[((_Y - 20) / 20), (_X / 20)] != 1)
-        //        return true;
-        //    else return false;
-        //}
+        static Collisions()
+        {
+            Rectangles = new List<Rectangle>();
+        }
 
-
-        //static public bool canGoleft(int _X, int _Y)
-        //{
-        //    if (board[(_Y / 20), ((_X - 20) / 20)] != 1)
-        //        return true;
-        //    else return false;
-        //}
-
-        //static public bool canGoRight(int _X, int _Y)
-        //{
-        //    if (board[(_Y / 20), ((_X + 20) / 20)] != 1)
-        //        return true;
-        //    else return false;
-        //}
+        // Sempre que crias uma parede no jogo, adicionas aqui a esta lista de Rectangles, basicamente.
     }
 }
