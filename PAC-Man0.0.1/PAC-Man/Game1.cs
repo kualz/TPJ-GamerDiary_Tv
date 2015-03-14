@@ -27,8 +27,11 @@ namespace PAC_Man
         SpriteBatch spriteBatch;
         SpriteFont Score;
         SpriteFont Lifes;
+        Texture2D mobs1;
         double lastHumanMove;
         Room room;
+        Mobs mobs;
+        Mobs mobs0;
        
         public Game1()
             : base()
@@ -56,6 +59,11 @@ namespace PAC_Man
 
             novopac = new objectpacman();
             novopac.Load(Content);
+
+            mobs = new Mobs(240, 280, 100);
+            mobs0 = new Mobs(280, 280, 100);
+            mobs.load(Content, "Monster1_bitt");
+            mobs0.load(Content, "Monster1_bytt");
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -93,8 +101,9 @@ namespace PAC_Man
             spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(10, 620), Color.White);
 
             room.Draw(spriteBatch);
-            novopac.Draw(spriteBatch);  
-            
+            novopac.Draw(spriteBatch);
+            mobs.Draw(spriteBatch);
+            mobs0.Draw(spriteBatch);
 
 
             if (gamestate == GameState.Win)

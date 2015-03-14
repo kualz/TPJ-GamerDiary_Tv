@@ -10,13 +10,13 @@ namespace PAC_Man
 {
     class Mobs : AI
     {
-        private int speed;
+        private float speed;
         private Vector2 position;
         private float x, y;
         private Texture2D mob;
         private Rectangle Rec;
 
-        public Mobs(float PositionX, float PositionY, int speed)
+        public Mobs(float PositionX, float PositionY, float speed)
         {
             this.speed = speed;
             x = PositionX;
@@ -24,12 +24,9 @@ namespace PAC_Man
             position = new Vector2(x, y);
         }
 
-        public void load(ContentManager content, string nomeSpriteMob1, string nomeSpriteMob2)
+        public void load(ContentManager content, string nomeSpriteMob)
         {
-            mob = content.Load<Texture2D>(nomeSpriteMob1);
-            mob = content.Load<Texture2D>(nomeSpriteMob2);
-            //mob3
-            //mob4
+            mob = content.Load<Texture2D>(nomeSpriteMob);
         }
 
         public void Update(GameTime gameTime)
@@ -58,7 +55,7 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.Draw(mob, new Vector2(x, y), Color.White);
         }
     }
 }
