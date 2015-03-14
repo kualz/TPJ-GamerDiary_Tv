@@ -61,12 +61,7 @@ namespace PAC_Man
             textures[7] = content.Load<Texture2D>("2.bmp");
             textures[8] = content.Load<Texture2D>("1.bmp");          
 
-            texturesEmpower = new Texture2D[5];
-            texturesEmpower[0] = content.Load<Texture2D>("PacManLeft_Empowered");
-            texturesEmpower[1] = content.Load<Texture2D>("PacManLeft_Empowered1");
-            texturesEmpower[2] = content.Load<Texture2D>("PacManLeft_Empowered2");
-            texturesEmpower[3] = content.Load<Texture2D>("PacManLeft_Empowered1");
-            texturesEmpower[4] = content.Load<Texture2D>("PacManLeft_Empowered");
+            texturesEmpower = new Texture2D[5];           
 
             timer1 = content.Load<SpriteFont>("MyFont");
             timer2 = content.Load<SpriteFont>("Myfont");
