@@ -27,7 +27,6 @@ namespace PAC_Man
         SpriteBatch spriteBatch;
         SpriteFont Score;
         SpriteFont Lifes;
-        int score = 0;
         double lastHumanMove;
         Room room;
        
@@ -79,7 +78,7 @@ namespace PAC_Man
             lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
             if (gamestate == GameState.running)
             {   
-                novopac.Update(gameTime, room, score);     
+                novopac.Update(gameTime, room);     
             }       
             base.Update(gameTime); 
         }
@@ -91,7 +90,7 @@ namespace PAC_Man
 
             if (gamestate == GameState.gameOver)
                 spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
-            spriteBatch.DrawString(Score, "Score: " + score, new Vector2(10, 620), Color.White);
+            spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(10, 620), Color.White);
 
             room.Draw(spriteBatch);
             novopac.Draw(spriteBatch);  
@@ -101,7 +100,7 @@ namespace PAC_Man
             if (gamestate == GameState.Win)
             {                
                 spriteBatch.DrawString(Score, "Good Job", new Vector2(220, 260), Color.White);
-                spriteBatch.DrawString(Score, "Score: " + score, new Vector2(220, 275), Color.White);
+                spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(220, 275), Color.White);
                 UnloadContent();
             }
             spriteBatch.End();

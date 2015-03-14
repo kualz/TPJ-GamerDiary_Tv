@@ -18,17 +18,25 @@ namespace PAC_Man
             GoingDown,
             GoingUp
         };
+        public enum PacManPower
+        {
+            Empower,
+            normal
+        };
+        public PacManPower pacPow = PacManPower.normal;
         public PacManState PacMove;
         public Vector2 position;
         public float x;
         public float y;
         public Texture2D[] textures;
+        public Texture2D[] texturesEmpower;
         private float speed;
         private int TextureSize = 19;
         private Rectangle Rec;
         public double rotaçao;
-        float intervalo= 0.08f, timer;
+        float intervalo= 0.08f, timer, timerPower;
         int currentFrame;
+        public int score = 0;
 
         public objectpacman() 
         {
@@ -46,14 +54,29 @@ namespace PAC_Man
             textures[2] = content.Load<Texture2D>("Pacman3.bmp");
             textures[3] = content.Load<Texture2D>("Pacman2.bmp");
             textures[4] = content.Load<Texture2D>("Bitmap1.bmp");
+
+            texturesEmpower = new Texture2D[5];
+            texturesEmpower[0] = content.Load<Texture2D>("PacManLeft_Empowered");
+            texturesEmpower[1] = content.Load<Texture2D>("PacManLeft_Empowered1");
+            texturesEmpower[2] = content.Load<Texture2D>("PacManLeft_Empowered2");
+            texturesEmpower[3] = content.Load<Texture2D>("PacManLeft_Empowered1");
+            texturesEmpower[4] = content.Load<Texture2D>("PacManLeft_Empowered");
         }
 
 
-        public void Update(GameTime gameTime, Room room, int score)
+        public void Update(GameTime gameTime, Room room)
         {        
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float PowerTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 nextPosition = position;
             timer += deltaTime;
+            if (pacPow == PacManPower.Empower)
+                timerPower += PowerTime;
+            if (PowerTime >= 0.2f)
+            {
+                pacPow = PacManPower.normal;
+                PowerTime = 0;
+            }
             if (timer >= intervalo)
             {
                 currentFrame++;
@@ -114,6 +137,7 @@ namespace PAC_Man
             }
             if (room.Checkcomida(position) == 4)
             {
+                pacPow = PacManPower.Empower;
                 room.DestroySquare(position);
                 score += 5;
             }
@@ -141,8 +165,10 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
-            spriteBatch.Draw(textures[currentFrame],new Vector2(position.X + 10, position.Y + 10),null,Color.White,(float)rotaçao,new Vector2(10,10),1f,SpriteEffects.None, 0f);
+            if (pacPow == PacManPower.normal)
+                spriteBatch.Draw(textures[currentFrame],new Vector2(position.X + 10, position.Y + 10),null,Color.White,(float)rotaçao,new Vector2(10,10),1f,SpriteEffects.None, 0f);
+            if (pacPow == PacManPower.Empower)
+                spriteBatch.Draw(texturesEmpower[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.White, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
         }
     }
 }
