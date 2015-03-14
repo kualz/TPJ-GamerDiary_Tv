@@ -25,14 +25,6 @@ namespace PAC_Man
         objectpacman novopac;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D PacMan;
-        Texture2D PacManDown;
-        Texture2D PacManLeft;
-        Texture2D PacMan_Empowered;
-        Texture2D PacManDown_Empowered;
-        Texture2D PacManLeft_Empowered;
-        Texture2D PacManUp_Empowered;
-        Texture2D PacManUp;
         SpriteFont Score;
         SpriteFont Lifes;
         int score = 0;
@@ -68,16 +60,6 @@ namespace PAC_Man
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            PacMan = Content.Load<Texture2D>("Bitmap1");
-            PacManDown = Content.Load<Texture2D>("PacManDown");
-            PacManUp = Content.Load<Texture2D>("PacManUp");
-            PacManLeft = Content.Load<Texture2D>("PacManLeft");
-
-            PacMan_Empowered = Content.Load<Texture2D>("PacManRight_Empowered");
-            PacManDown_Empowered = Content.Load<Texture2D>("PacManDown_Empowered");
-            PacManUp_Empowered = Content.Load<Texture2D>("PacManUp_Empowered");
-            PacManLeft_Empowered = Content.Load<Texture2D>("PacManLeft_Empowered");
-
             Score = Content.Load<SpriteFont>("MyFont");
             Lifes = Content.Load<SpriteFont>("MyFont");
         }
@@ -85,14 +67,8 @@ namespace PAC_Man
         
         protected override void UnloadContent()
         {
-            PacMan_Empowered.Dispose();
-            PacManDown_Empowered.Dispose();
-            PacManUp_Empowered.Dispose();
-            PacManLeft_Empowered.Dispose();
-            PacMan.Dispose();
-            PacManDown.Dispose();
-            PacManLeft.Dispose();
-            PacManUp.Dispose();
+           
+          
         }
 
         
@@ -103,7 +79,7 @@ namespace PAC_Man
             lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
             if (gamestate == GameState.running)
             {   
-                novopac.Update(gameTime);     
+                novopac.Update(gameTime, room, score);     
             }       
             base.Update(gameTime); 
         }

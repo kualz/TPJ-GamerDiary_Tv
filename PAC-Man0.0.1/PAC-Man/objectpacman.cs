@@ -49,7 +49,7 @@ namespace PAC_Man
         }
 
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Room room, int score)
         {        
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 nextPosition = position;
@@ -66,31 +66,31 @@ namespace PAC_Man
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                rotaçao = Math.PI;
                 nextPosition = new Vector2(position.X - speed * deltaTime , position.Y);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
+                    rotaçao = Math.PI;
                     PacMove = PacManState.GoingLeft;
-                    position = nextPosition;
+                    position = nextPosition;                                
                     if (position.X < 10 && position.Y > 279 && position.Y < 281) position = new Vector2(26 * 20, 280);
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                rotaçao = -Math.PI / 2;
                 nextPosition = new Vector2(position.X, position.Y - speed * deltaTime);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
+                    rotaçao = -Math.PI / 2;
                     PacMove = PacManState.GoingUp;
                     position = nextPosition;
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                rotaçao = 0;
                 nextPosition = new Vector2(position.X + speed * deltaTime, position.Y);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
+                    rotaçao = 0;
                     PacMove = PacManState.GoingRight;
                     position = nextPosition;
                     if (position.X < 533 && position.X > 531 && position.Y > 279 && position.Y < 281) position = new Vector2(15, 280);
@@ -99,13 +99,23 @@ namespace PAC_Man
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                rotaçao = Math.PI / 2;
                 nextPosition = new Vector2(position.X, position.Y + speed * deltaTime);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
+                    rotaçao = Math.PI / 2;
                     PacMove = PacManState.GoingDown;
                     position = nextPosition;
                 }
+            }
+            if (room.Checkcomida(position) == 5)
+            {
+                room.DestroySquare(position);
+                score += 1;            
+            }
+            if (room.Checkcomida(position) == 4)
+            {
+                room.DestroySquare(position);
+                score += 5;
             }
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), TextureSize, TextureSize);
         }
