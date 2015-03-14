@@ -28,6 +28,7 @@ namespace PAC_Man
         public Vector2 position;
         public float x;
         public float y;
+        public SpriteFont timer1, timer2;
         public Texture2D[] textures;
         public Texture2D[] texturesEmpower;
         private float speed;
@@ -62,6 +63,9 @@ namespace PAC_Man
             texturesEmpower[2] = content.Load<Texture2D>("PacManLeft_Empowered2");
             texturesEmpower[3] = content.Load<Texture2D>("PacManLeft_Empowered1");
             texturesEmpower[4] = content.Load<Texture2D>("PacManLeft_Empowered");
+
+            timer1 = content.Load<SpriteFont>("MyFont");
+            timer2 = content.Load<SpriteFont>("Myfont");
         }
 
 
@@ -77,7 +81,7 @@ namespace PAC_Man
             {
                 pacPow = PacManPower.normal;
                 superspeed = 0;
-                PowerTime = 0;
+                timerPower = 0;
             }
             if (timer >= intervalo)
             {
@@ -171,7 +175,9 @@ namespace PAC_Man
             if (pacPow == PacManPower.normal)
                 spriteBatch.Draw(textures[currentFrame],new Vector2(position.X + 10, position.Y + 10),null,Color.White,(float)rotaçao,new Vector2(10,10),1f,SpriteEffects.None, 0f);
             if (pacPow == PacManPower.Empower)
-                spriteBatch.Draw(texturesEmpower[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.White, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+            { spriteBatch.Draw(texturesEmpower[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.White, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (3 - timerPower)), new Vector2(300, 620), Color.White);
+            }
         }
     }
 }
