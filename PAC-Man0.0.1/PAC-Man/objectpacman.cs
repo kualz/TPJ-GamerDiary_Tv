@@ -37,6 +37,7 @@ namespace PAC_Man
         float intervalo= 0.08f, timer, timerPower;
         int currentFrame;
         public int score = 0;
+        public int superspeed = 0;
 
         public objectpacman() 
         {
@@ -72,9 +73,10 @@ namespace PAC_Man
             timer += deltaTime;
             if (pacPow == PacManPower.Empower)
                 timerPower += PowerTime;
-            if (PowerTime >= 0.2f)
+            if (timerPower >= 3f)
             {
                 pacPow = PacManPower.normal;
+                superspeed = 0;
                 PowerTime = 0;
             }
             if (timer >= intervalo)
@@ -89,7 +91,7 @@ namespace PAC_Man
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                nextPosition = new Vector2(position.X - speed * deltaTime , position.Y);
+                nextPosition = new Vector2(position.X - speed * deltaTime - superspeed, position.Y);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = Math.PI;
@@ -100,7 +102,7 @@ namespace PAC_Man
             }
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                nextPosition = new Vector2(position.X, position.Y - speed * deltaTime);
+                nextPosition = new Vector2(position.X, position.Y - speed * deltaTime - superspeed);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = -Math.PI / 2;
@@ -110,7 +112,7 @@ namespace PAC_Man
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                nextPosition = new Vector2(position.X + speed * deltaTime, position.Y);
+                nextPosition = new Vector2(position.X + speed * deltaTime + superspeed, position.Y);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = 0;
@@ -122,7 +124,7 @@ namespace PAC_Man
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                nextPosition = new Vector2(position.X, position.Y + speed * deltaTime);
+                nextPosition = new Vector2(position.X, position.Y + speed * deltaTime + superspeed);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = Math.PI / 2;
@@ -138,6 +140,7 @@ namespace PAC_Man
             if (room.Checkcomida(position) == 4)
             {
                 pacPow = PacManPower.Empower;
+                superspeed = 1;
                 room.DestroySquare(position);
                 score += 5;
             }
