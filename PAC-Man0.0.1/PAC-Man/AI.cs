@@ -7,5 +7,6 @@ namespace PAC_Man
 {
     class AI
     {
+
     }
 }

@@ -53,8 +53,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AI.cs" />
     <Compile Include="isto ta tipo de medo %28building%29\Collisions.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Mobs.cs" />
     <Compile Include="objectpacman.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
