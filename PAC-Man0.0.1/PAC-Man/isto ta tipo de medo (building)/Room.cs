@@ -82,7 +82,7 @@ namespace PAC_Man
                     if (board[y, x] == 1)
                     {
                         Rec = new Rectangle(x * TextureSize, y * TextureSize, 20, 20);
-                        Colisoes.Add(Rec);
+                        Collisions.Rectangles.Add(Rec);
                     }
         }
 
