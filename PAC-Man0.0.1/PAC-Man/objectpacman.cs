@@ -50,12 +50,16 @@ namespace PAC_Man
 
         public void Load(ContentManager content)
         {
-            textures = new Texture2D[5];
-            textures[0] = content.Load<Texture2D>("Bitmap1.bmp");
-            textures[1] = content.Load<Texture2D>("Pacman2.bmp");
-            textures[2] = content.Load<Texture2D>("Pacman3.bmp");
-            textures[3] = content.Load<Texture2D>("Pacman2.bmp");
-            textures[4] = content.Load<Texture2D>("Bitmap1.bmp");
+            textures = new Texture2D[9];
+            textures[0] = content.Load<Texture2D>("1.bmp");
+            textures[1] = content.Load<Texture2D>("2.bmp");
+            textures[2] = content.Load<Texture2D>("3.bmp");
+            textures[3] = content.Load<Texture2D>("4.bmp");
+            textures[4] = content.Load<Texture2D>("5.bmp");
+            textures[5] = content.Load<Texture2D>("4.bmp");
+            textures[6] = content.Load<Texture2D>("3.bmp");
+            textures[7] = content.Load<Texture2D>("2.bmp");
+            textures[8] = content.Load<Texture2D>("1.bmp");          
 
             texturesEmpower = new Texture2D[5];
             texturesEmpower[0] = content.Load<Texture2D>("PacManLeft_Empowered");
@@ -86,7 +90,7 @@ namespace PAC_Man
             if (timer >= intervalo)
             {
                 currentFrame++;
-                if (currentFrame >= (5))
+                if (currentFrame >= (9))
                 {
                     currentFrame = 0;
                 }
@@ -175,7 +179,7 @@ namespace PAC_Man
             if (pacPow == PacManPower.normal)
                 spriteBatch.Draw(textures[currentFrame],new Vector2(position.X + 10, position.Y + 10),null,Color.White,(float)rotaçao,new Vector2(10,10),1f,SpriteEffects.None, 0f);
             if (pacPow == PacManPower.Empower)
-            { spriteBatch.Draw(texturesEmpower[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.White, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+            { spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (3 - timerPower)), new Vector2(300, 620), Color.White);
             }
         }
