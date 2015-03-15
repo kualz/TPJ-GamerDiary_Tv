@@ -63,14 +63,14 @@ namespace PAC_Man
                 for (int x = 0; x < board.GetLength(1); x++)
                 {
 
-                    if(board[y,x] == 1)
+                    if (board[y, x] == 1)
                         spriteBatch.Draw(square, new Vector2(x * TextureSize, y * TextureSize), Color.Blue);
-                    if(board[y,x] == 2)
-                            spriteBatch.Draw(square, new Vector2(x * TextureSize, y * TextureSize), Color.White);
-                    if(board[y,x] == 4)
+                    if (board[y, x] == 2)
+                        spriteBatch.Draw(square, new Vector2(x * TextureSize, y * TextureSize), Color.White);
+                    if (board[y, x] == 4)
                         spriteBatch.Draw(FOOD, new Vector2(x * TextureSize, y * TextureSize), Color.White);
-                    if(board[y,x] == 5)
-                        spriteBatch.Draw(FOOD1, new Vector2(x * TextureSize, y * TextureSize), Color.White);                   
+                    if (board[y, x] == 5)
+                        spriteBatch.Draw(FOOD1, new Vector2(x * TextureSize, y * TextureSize), Color.White);
                 }
         }
 
@@ -84,7 +84,7 @@ namespace PAC_Man
                         Rec = new Rectangle(x * TextureSize, y * TextureSize, 20, 20);
                         Collisions.Rectangles.Add(Rec);
                     }
-                    if (board[y,x] == 4)
+                    if (board[y, x] == 4)
                     {
                         Rec = new Rectangle(x * TextureSize, y * TextureSize, 20, 20);
                         Collisions.Food.Add(Rec);
@@ -98,11 +98,25 @@ namespace PAC_Man
         }
         public void DestroySquare(Vector2 pos)
         {
-            board[(int)Math.Round(pos.Y/20), (int)Math.Round(pos.X/20)] = 0;
+            board[(int)Math.Round(pos.Y / 20), (int)Math.Round(pos.X / 20)] = 0;
         }
         public int Checkcomida(Vector2 pos)
         {
             return board[(int)Math.Round(pos.Y / 20), (int)Math.Round(pos.X / 20)];
         }
+
+        public bool WinTest()
+        {int g = 0;
+            for (int y = 0; y < board.GetLength(0); y++)
+                for (int x = 0; x < board.GetLength(1); x++)
+                {
+                    if (board[y, x] == 5 || board[y, x] == 4)
+                        g++;
+                }
+            if (g == 0)
+                return true;
+            else return false;
         }
+
+    }
 }

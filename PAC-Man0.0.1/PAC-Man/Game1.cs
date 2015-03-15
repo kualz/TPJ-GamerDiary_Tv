@@ -27,8 +27,6 @@ namespace PAC_Man
         SpriteBatch spriteBatch;
         SpriteFont Score;
         SpriteFont Lifes;
-        Texture2D mobs1;
-        double lastHumanMove;
         Room room;
         Mobs mobs;
         Mobs mobs0;
@@ -53,6 +51,7 @@ namespace PAC_Man
         
         protected override void LoadContent()
         {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             room = new Room();
             room.Load(Content);
             room.InicializarColisoes();
@@ -60,12 +59,10 @@ namespace PAC_Man
             novopac = new objectpacman();
             novopac.Load(Content);
 
-            mobs = new Mobs(240, 280, 100);
-            mobs0 = new Mobs(280, 280, 100);
+            mobs = new Mobs(240, 280-60, 100f);
+            mobs0 = new Mobs(280, 280-60, 100f);
             mobs.load(Content, "Monster1_bitt");
             mobs0.load(Content, "Monster1_bytt");
-
-            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Score = Content.Load<SpriteFont>("MyFont");
             Lifes = Content.Load<SpriteFont>("MyFont");
@@ -83,10 +80,13 @@ namespace PAC_Man
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            lastHumanMove += gameTime.ElapsedGameTime.TotalSeconds;
             if (gamestate == GameState.running)
             {   
-                novopac.Update(gameTime, room);     
+                novopac.Update(gameTime, room);
+                mobs.Update(gameTime);
+                mobs0.Update(gameTime);
+                if (room.WinTest())
+                    gamestate = GameState.Win;
             }       
             base.Update(gameTime); 
         }
@@ -98,12 +98,15 @@ namespace PAC_Man
 
             if (gamestate == GameState.gameOver)
                 spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
-            spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(10, 620), Color.White);
+            if (gamestate == GameState.running)
+            {
+                spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(10, 620), Color.White);
 
-            room.Draw(spriteBatch);
-            novopac.Draw(spriteBatch);
-            mobs.Draw(spriteBatch);
-            mobs0.Draw(spriteBatch);
+                room.Draw(spriteBatch);
+                novopac.Draw(spriteBatch);
+                mobs.Draw(spriteBatch);
+                mobs0.Draw(spriteBatch);
+            }
 
 
             if (gamestate == GameState.Win)

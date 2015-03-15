@@ -8,13 +8,22 @@ using System.Text;
 
 namespace PAC_Man
 {
-    class Mobs : AI
+    class Mobs
     {
-        private float speed;
-        private Vector2 position;
-        private float x, y;
-        private Texture2D mob;
-        private Rectangle Rec;
+        private enum mobState
+        {
+            goingUp,
+            goingDown,
+            goingLeft,
+            goingRight
+        };
+        private mobState status;
+        protected float speed;
+        protected Vector2 position;
+        protected float x, y;
+        protected Texture2D mob;
+        protected Rectangle Rec;
+        private int textureSize = 20;
 
         public Mobs(float PositionX, float PositionY, float speed)
         {
@@ -31,10 +40,80 @@ namespace PAC_Man
 
         public void Update(GameTime gameTime)
         {
-            float DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float DeltaTime1 = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 nextPosition = position;
 
+            if(status == mobState.goingUp)
+            {
+                nextPosition = new Vector2(position.X, position.Y - speed * DeltaTime1);
+                if(CheckCollisions(nextPosition).Count == 0)
+                    position = nextPosition;
+                else
+                    ChooseDirection(DeltaTime1);
+            }
 
+            if(status == mobState.goingDown)
+            {
+
+                nextPosition = new Vector2(position.X, position.Y + speed * DeltaTime1);
+                if(CheckCollisions(nextPosition).Count == 0)
+                    position = nextPosition;
+                else
+                    ChooseDirection(DeltaTime1);
+            }
+
+            if(status == mobState.goingLeft)
+            {
+                nextPosition = new Vector2(position.X - speed * DeltaTime1, position.Y);
+                if (CheckCollisions(nextPosition).Count == 0)
+                    position = nextPosition;
+                else
+                    ChooseDirection(DeltaTime1);
+                
+            }
+            if(status == mobState.goingRight)
+            {
+                nextPosition = new Vector2(position.X + speed * DeltaTime1, position.Y);
+                if (CheckCollisions(nextPosition).Count == 0)
+                    position = nextPosition;
+                else
+                    ChooseDirection(DeltaTime1);
+             }
+            Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), textureSize, textureSize);
+        }
+
+        private mobState ChooseDirection(float gametime)
+        {
+            
+            int random;
+            Random rand = new Random();
+            random = rand.Next(1, 4);
+
+            if (random == 1)
+            {
+                status = mobState.goingDown;
+                return status;
+            }
+
+            if(random == 2)
+            {
+                status = mobState.goingLeft;
+                return status;
+            }
+
+            if(random == 3)
+            {
+                status = mobState.goingRight;
+                return status;
+            }
+
+            if(random == 4)
+            {
+                status = mobState.goingUp;
+                return status;
+            }
+
+            return 0;
         }
 
         public List<Rectangle> CheckCollisions(Vector2 pos)
@@ -55,7 +134,7 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(mob, new Vector2(x, y), Color.White);
+            spriteBatch.Draw(mob, new Vector2(position.X, position.Y), Color.White);
         }
     }
 }
