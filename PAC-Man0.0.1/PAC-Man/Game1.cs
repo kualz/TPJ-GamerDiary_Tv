@@ -85,6 +85,7 @@ namespace PAC_Man
                 novopac.Update(gameTime, room);
                 mobs.Update(gameTime);
                 mobs0.Update(gameTime);
+                
                 if (room.WinTest())
                     gamestate = GameState.Win;
             }       

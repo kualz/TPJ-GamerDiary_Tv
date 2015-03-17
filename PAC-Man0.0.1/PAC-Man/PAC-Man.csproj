@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="isto ta tipo de medo %28building%29\Collisions.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="isto ta tipo de medo %28building%29\Projeteis.cs" />
     <Compile Include="Mobs.cs" />
     <Compile Include="objectpacman.cs" />
     <Compile Include="Program.cs" />
@@ -105,22 +106,7 @@
     <Content Include="Content\Bitmap3.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PacManLeft_Empowered2.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\PacManLeft_Empowered1.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\PacManLeft_Empowered.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\PacManLeft.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\PacManUp.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\PacManDown.bmp">
+    <Content Include="Content\Projetil.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\square.png">

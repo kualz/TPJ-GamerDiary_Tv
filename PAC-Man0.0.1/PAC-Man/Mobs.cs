@@ -84,11 +84,9 @@ namespace PAC_Man
 
         private mobState ChooseDirection(float gametime)
         {
-            
             int random;
             Random rand = new Random();
             random = rand.Next(1, 4);
-
             if (random == 1)
             {
                 status = mobState.goingDown;

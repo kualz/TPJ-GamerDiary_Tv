@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PAC_Man.isto_ta_tipo_de_medo__building_;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,7 @@ namespace PAC_Man
         int currentFrame;
         public int score = 0;
         public int superspeed = 0;
+        private Projeteis tiros;
 
         public objectpacman() 
         {
@@ -50,6 +52,8 @@ namespace PAC_Man
 
         public void Load(ContentManager content)
         {
+            tiros.load(content);
+
             textures = new Texture2D[9];
             textures[0] = content.Load<Texture2D>("1.bmp");
             textures[1] = content.Load<Texture2D>("2.bmp");
@@ -81,6 +85,13 @@ namespace PAC_Man
                 pacPow = PacManPower.normal;
                 superspeed = 0;
                 timerPower = 0;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                if (pacPow == PacManPower.Empower)
+                {
+                    tiros = new Projeteis(position, 200, PacMove);
+                }
             }
             if (timer >= intervalo)
             {
@@ -148,6 +159,7 @@ namespace PAC_Man
                 score += 5;
             }
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), TextureSize, TextureSize);
+            tiros.update(gameTime);
         }
 
         public List<Rectangle> CheckCollisions(Vector2 pos)
@@ -174,9 +186,11 @@ namespace PAC_Man
             if (pacPow == PacManPower.normal)
                 spriteBatch.Draw(textures[currentFrame],new Vector2(position.X + 10, position.Y + 10),null,Color.White,(float)rotaçao,new Vector2(10,10),1f,SpriteEffects.None, 0f);
             if (pacPow == PacManPower.Empower)
-            { spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (3 - timerPower)), new Vector2(300, 620), Color.White);
+            { 
+                spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (3 - timerPower)), new Vector2(300, 620), Color.White);
             }
+            tiros.draw(spriteBatch);
         }
     }
 }
