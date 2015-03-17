@@ -39,8 +39,9 @@ namespace PAC_Man
         float intervalo= 0.08f, timer, timerPower;
         int currentFrame;
         public int score = 0;
-        public int superspeed = 0;
+        public float superspeed = 0;
         private Projeteis tiros;
+        public bool flag = false;
 
         public objectpacman() 
         {
@@ -52,7 +53,7 @@ namespace PAC_Man
 
         public void Load(ContentManager content)
         {
-            tiros.load(content);
+            Projeteis.load(content);
 
             textures = new Texture2D[9];
             textures[0] = content.Load<Texture2D>("1.bmp");
@@ -91,6 +92,7 @@ namespace PAC_Man
                 if (pacPow == PacManPower.Empower)
                 {
                     tiros = new Projeteis(position, 200, PacMove);
+                    flag = true;
                 }
             }
             if (timer >= intervalo)
@@ -154,12 +156,14 @@ namespace PAC_Man
             if (room.Checkcomida(position) == 4)
             {
                 pacPow = PacManPower.Empower;
-                superspeed = 1;
+                superspeed = 0.5f;
                 room.DestroySquare(position);
                 score += 5;
             }
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), TextureSize, TextureSize);
-            tiros.update(gameTime);
+            if (flag == true)
+                if (pacPow == PacManPower.Empower)
+                    tiros.update(gameTime);
         }
 
         public List<Rectangle> CheckCollisions(Vector2 pos)
@@ -190,7 +194,10 @@ namespace PAC_Man
                 spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
                 spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (3 - timerPower)), new Vector2(300, 620), Color.White);
             }
-            tiros.draw(spriteBatch);
+            if (flag == true)
+                if (pacPow == PacManPower.Empower)
+                    tiros.draw(spriteBatch);
+            
         }
     }
 }

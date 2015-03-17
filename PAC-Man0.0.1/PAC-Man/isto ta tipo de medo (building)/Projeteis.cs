@@ -10,14 +10,14 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
 {
     class Projeteis : objectpacman
     {
-        Vector2 _position;
+        private Vector2 _position;
         bool visible = false;
-        List<Projeteis> _Projeteis = new List<Projeteis>();
-        Texture2D projectileTEX;
-        Rectangle Rec;
+        private List<Projeteis> _Projeteis = new List<Projeteis>();
+        private Rectangle Rec;
         protected Vector2 nextPosition;
-        int Pspeed;
-        PacManState direction;
+        private int Pspeed;
+        protected PacManState direction;
+        static protected Texture2D projectileTEX;
 
         public Projeteis(Vector2 position, int Pspeed, PacManState direction)
         {
@@ -27,9 +27,9 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             visible = true;
         }
 
-        public void load(ContentManager contentManager)
+        static public void load(ContentManager content)
         {
-            projectileTEX = contentManager.Load<Texture2D>("Projetil");
+            projectileTEX = content.Load<Texture2D>("Projetil");
         }
 
         public void update(GameTime gameTime)
