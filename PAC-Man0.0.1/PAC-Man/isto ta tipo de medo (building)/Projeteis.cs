@@ -15,13 +15,13 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         private List<Projeteis> _Projeteis = new List<Projeteis>();
         private Rectangle Rec;
         protected Vector2 nextPosition;
-        private int Pspeed;
+        private float Pspeed;
         protected PacManState direction;
         static protected Texture2D projectileTEX;
 
-        public Projeteis(Vector2 position, int Pspeed, PacManState direction)
+        public Projeteis(Vector2 startposition, int Pspeed, PacManState direction)
         {
-            this._position = position;
+            this._position = startposition;
             this.Pspeed = Pspeed;
             this.direction = direction;
             visible = true;
@@ -39,27 +39,27 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             if(visible == true)
             {
                 if (direction == PacManState.GoingDown)
-                    nextPosition = new Vector2(position.X, position.Y + Pspeed * deltaTime);
+                    nextPosition = new Vector2(_position.X, (_position.Y + Pspeed * deltaTime) +15);
                 if (direction == PacManState.GoingLeft)
-                    nextPosition = new Vector2(position.X - Pspeed * deltaTime, position.Y);
+                    nextPosition = new Vector2((_position.X - Pspeed * deltaTime) - 15, _position.Y);
                 if (direction == PacManState.GoingRight)
-                    nextPosition = new Vector2(position.X + Pspeed * deltaTime, position.Y);
+                    nextPosition = new Vector2((_position.X + Pspeed * deltaTime) + 15, _position.Y);
                 if (direction == PacManState.GoingUp)
-                    nextPosition = new Vector2(position.X, position.Y - Pspeed * deltaTime);
+                    nextPosition = new Vector2(_position.X, (_position.Y - Pspeed * deltaTime) - 15);
             }
             if(CheckCollisionsProjectile(nextPosition).Count != 0)
             {
                 visible = false;
             }
-            position = nextPosition;
+            _position = nextPosition;
         }
 
         public void draw(SpriteBatch spriteBatch)
         {
             if (visible)
             {
-                spriteBatch.Draw(projectileTEX, position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-                Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), 15, 15);
+                spriteBatch.Draw(projectileTEX, _position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                Rec = new Rectangle((int)Math.Round(_position.X), (int)Math.Round(_position.Y), 15, 15);
             }
         }
 
