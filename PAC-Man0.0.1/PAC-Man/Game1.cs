@@ -60,7 +60,9 @@ namespace PAC_Man
             novopac.Load(Content);
 
             mobs = new Mobs(240, 280-60, 100f);
+            Collisions.Phantoms.Add(mobs);
             mobs0 = new Mobs(280, 280-60, 100f);
+            Collisions.Phantoms.Add(mobs0);
             mobs.load(Content, "Monster1_bitt");
             mobs0.load(Content, "Monster1_bytt");
 
@@ -98,7 +100,9 @@ namespace PAC_Man
             spriteBatch.Begin();
 
             if (gamestate == GameState.gameOver)
-                spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
+            {spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
+            spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(220, 275), Color.White);
+            }
             if (gamestate == GameState.running)
             {
                 spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(10, 620), Color.White);
@@ -107,6 +111,8 @@ namespace PAC_Man
                 novopac.Draw(spriteBatch);
                 mobs.Draw(spriteBatch);
                 mobs0.Draw(spriteBatch);
+                if (objectpacman.gamestate() == true)
+                    gamestate = GameState.gameOver;
             }
 
 

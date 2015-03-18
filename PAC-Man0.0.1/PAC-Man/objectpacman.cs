@@ -42,6 +42,7 @@ namespace PAC_Man
         public float superspeed = 0;
         private Projeteis tiros;
         public bool flag = false;
+        public static bool gamestatechanger = false;
 
         public objectpacman() 
         {
@@ -108,52 +109,69 @@ namespace PAC_Man
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 nextPosition = new Vector2(position.X - speed * deltaTime - superspeed, position.Y);
-                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                    Console.WriteLine("MOB!");
-                if (CheckCollisions(nextPosition).Count == 0) 
+                
+                if (CheckCollisions(nextPosition).Count == 0)
                 {
-                    rotaçao = Math.PI;
-                    PacMove = PacManState.GoingLeft;
-                    position = nextPosition;                                
-                    if (position.X < 10 && position.Y > 279 && position.Y < 281) position = new Vector2(26 * 20, 280);
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                        gamestatechanger = true;
+                    else
+                    {
+                        rotaçao = Math.PI;
+                        PacMove = PacManState.GoingLeft;
+                        position = nextPosition;
+                        if (position.X < 10 && position.Y > 279 && position.Y < 281) position = new Vector2(26 * 20, 280);
+                    }
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 nextPosition = new Vector2(position.X, position.Y - speed * deltaTime - superspeed);
-                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                    Console.WriteLine("MOB!");
+                
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
-                    rotaçao = -Math.PI / 2;
-                    PacMove = PacManState.GoingUp;
-                    position = nextPosition;
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                        gamestatechanger = true;
+                    else
+                    {
+                        rotaçao = -Math.PI / 2;
+                        PacMove = PacManState.GoingUp;
+                        position = nextPosition;
+                    }
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 nextPosition = new Vector2(position.X + speed * deltaTime + superspeed, position.Y);
-                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                    Console.WriteLine("MOB!");
+                
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
-                    rotaçao = 0;
-                    PacMove = PacManState.GoingRight;
-                    position = nextPosition;
-                    if (position.X < 533 && position.X > 531 && position.Y > 279 && position.Y < 281) position = new Vector2(15, 280);
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                        gamestatechanger = true;
+                    else
+                    {
+                        rotaçao = 0;
+                        PacMove = PacManState.GoingRight;
+                        position = nextPosition;
+                        if (position.X < 533 && position.X > 531 && position.Y > 279 && position.Y < 281) position = new Vector2(15, 280);
+                    }
+                    
                 }       
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 nextPosition = new Vector2(position.X, position.Y + speed * deltaTime + superspeed);
-                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                    Console.WriteLine("MOB!");
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
-                    rotaçao = Math.PI / 2;
-                    PacMove = PacManState.GoingDown;
-                    position = nextPosition;
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                        gamestatechanger = true;
+                    else
+                    {
+                        rotaçao = Math.PI / 2;
+                        PacMove = PacManState.GoingDown;
+                        position = nextPosition;
+                    }
+                    
                 }
             }
             if (room.Checkcomida(position) == 5)
@@ -172,6 +190,18 @@ namespace PAC_Man
             if (flag == true)
                 if (pacPow == PacManPower.Empower)
                     tiros.update(gameTime);
+            if (checkCollisionMOB(nextPosition).Count != 0)
+                gamestatechanger = true;
+           
+
+            gamestate();
+        }
+
+        public static bool gamestate()
+        {
+            if (gamestatechanger == true)
+                return true;
+            else return false;
         }
 
         public List<Rectangle> checkCollisionMOB(Vector2 pos)
@@ -182,9 +212,9 @@ namespace PAC_Man
             List<Rectangle> collidingWith = new List<Rectangle>();
             Rectangle rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
 
-            foreach (Rectangle a in Collisions.Phantoms)
+            foreach (Mobs a in Collisions.Phantoms)
             {
-                if (rect.Intersects(a) && rect != a)
+                if (rect.Intersects(a.returnrecMob()) && rect != a.returnrecMob())
                 {
                     collidingWith.Add(rect);
                 }
