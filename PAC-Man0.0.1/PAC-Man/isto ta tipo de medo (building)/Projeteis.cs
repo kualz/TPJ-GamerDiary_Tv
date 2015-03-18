@@ -39,13 +39,21 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             if(visible == true)
             {
                 if (direction == PacManState.GoingDown)
-                    nextPosition = new Vector2(_position.X, (_position.Y + Pspeed * deltaTime) +15);
+                {
+                    nextPosition = new Vector2(_position.X, (_position.Y + Pspeed * deltaTime));
+                }
                 if (direction == PacManState.GoingLeft)
-                    nextPosition = new Vector2((_position.X - Pspeed * deltaTime) - 15, _position.Y);
+                {
+                    nextPosition = new Vector2((_position.X - Pspeed * deltaTime), _position.Y);
+                }
                 if (direction == PacManState.GoingRight)
-                    nextPosition = new Vector2((_position.X + Pspeed * deltaTime) + 15, _position.Y);
+                {
+                    nextPosition = new Vector2((_position.X + Pspeed * deltaTime), _position.Y);
+                }
                 if (direction == PacManState.GoingUp)
-                    nextPosition = new Vector2(_position.X, (_position.Y - Pspeed * deltaTime) - 15);
+                {
+                    nextPosition = new Vector2(_position.X, (_position.Y - Pspeed * deltaTime));
+                }
             }
             if(CheckCollisionsProjectile(nextPosition).Count != 0)
             {
@@ -58,7 +66,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         {
             if (visible)
             {
-                spriteBatch.Draw(projectileTEX, _position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(projectileTEX, nextPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 Rec = new Rectangle((int)Math.Round(_position.X), (int)Math.Round(_position.Y), 15, 15);
             }
         }

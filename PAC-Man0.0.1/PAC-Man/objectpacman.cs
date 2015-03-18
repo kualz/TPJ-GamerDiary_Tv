@@ -92,7 +92,7 @@ namespace PAC_Man
             {
                 if (pacPow == PacManPower.Empower)
                 {
-                    tiros = new Projeteis(nextPosition, 1, PacMove);
+                    tiros = new Projeteis(nextPosition, 200, PacMove);
                     flag = true;
                 }
             }
