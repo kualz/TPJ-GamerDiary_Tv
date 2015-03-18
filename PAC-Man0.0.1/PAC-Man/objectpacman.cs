@@ -108,6 +108,8 @@ namespace PAC_Man
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 nextPosition = new Vector2(position.X - speed * deltaTime - superspeed, position.Y);
+                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                    Console.WriteLine("MOB!");
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = Math.PI;
@@ -119,6 +121,8 @@ namespace PAC_Man
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 nextPosition = new Vector2(position.X, position.Y - speed * deltaTime - superspeed);
+                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                    Console.WriteLine("MOB!");
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = -Math.PI / 2;
@@ -129,6 +133,8 @@ namespace PAC_Man
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 nextPosition = new Vector2(position.X + speed * deltaTime + superspeed, position.Y);
+                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                    Console.WriteLine("MOB!");
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = 0;
@@ -141,6 +147,8 @@ namespace PAC_Man
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 nextPosition = new Vector2(position.X, position.Y + speed * deltaTime + superspeed);
+                if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
+                    Console.WriteLine("MOB!");
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
                     rotaçao = Math.PI / 2;
@@ -166,6 +174,24 @@ namespace PAC_Man
                     tiros.update(gameTime);
         }
 
+        public List<Rectangle> checkCollisionMOB(Vector2 pos)
+        {
+            //retangulo pac e rectangulo mob
+            //intersect
+
+            List<Rectangle> collidingWith = new List<Rectangle>();
+            Rectangle rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
+
+            foreach (Rectangle a in Collisions.Phantoms)
+            {
+                if (rect.Intersects(a) && rect != a)
+                {
+                    collidingWith.Add(rect);
+                }
+            }
+            return collidingWith;
+        }        
+
         public List<Rectangle> CheckCollisions(Vector2 pos)
         {
             List<Rectangle> collidingWith = new List<Rectangle>();
@@ -179,7 +205,6 @@ namespace PAC_Man
                     collidingWith.Add(rectangle);
                 }
             }
-
             return collidingWith;
         }
 
@@ -196,8 +221,7 @@ namespace PAC_Man
             }
             if (flag == true)
                 if (pacPow == PacManPower.Empower)
-                    tiros.draw(spriteBatch);
-            
+                    tiros.draw(spriteBatch);         
         }
     }
 }

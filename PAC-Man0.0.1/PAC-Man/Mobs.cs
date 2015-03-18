@@ -31,6 +31,8 @@ namespace PAC_Man
             x = PositionX;
             y = PositionY;
             position = new Vector2(x, y);
+            Rec = new Rectangle((int)Math.Round(x), (int)Math.Round(y), textureSize, textureSize);
+            Collisions.Phantoms.Add(Rec);
         }
 
         public void load(ContentManager content, string nomeSpriteMob)
@@ -79,7 +81,12 @@ namespace PAC_Man
                 else
                     ChooseDirection(DeltaTime1);
              }
+            Collisions.Phantoms.Remove(Rec);
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), textureSize, textureSize);
+            Collisions.Phantoms.Add(Rec);
+            ////Collisions.Phantoms[1].X = (int)Math.Round(nextPosition.X);
+            ////Collisions.Phantoms[1].Y = nextPosition.Y;
+            
         }
 
         private mobState ChooseDirection(float gametime)

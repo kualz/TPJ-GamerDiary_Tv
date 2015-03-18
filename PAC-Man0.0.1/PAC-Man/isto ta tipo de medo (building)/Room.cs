@@ -100,6 +100,7 @@ namespace PAC_Man
         {
             board[(int)Math.Round(pos.Y / 20), (int)Math.Round(pos.X / 20)] = 0;
         }
+
         public int Checkcomida(Vector2 pos)
         {
             return board[(int)Math.Round(pos.Y / 20), (int)Math.Round(pos.X / 20)];
