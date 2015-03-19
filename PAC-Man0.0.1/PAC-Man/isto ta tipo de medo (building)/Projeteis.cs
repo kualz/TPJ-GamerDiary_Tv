@@ -55,9 +55,9 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                     nextPosition = new Vector2(_position.X, (_position.Y - Pspeed * deltaTime));
                 }
             }
-            if(CheckCollisionsProjectile(nextPosition).Count != 0)
-            {
-                visible = false;
+            if (CheckCollisionsProjectile(nextPosition).Count != 0 || CheckCollisionsMOBS(nextPosition).Count != 0)
+            {            
+                visible = false; 
             }
             _position = nextPosition;
         }
@@ -89,11 +89,27 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                     collidingWith.Add(rectangle);
                 }
             }
-
             return collidingWith;
         }
 
 
+        //isto supostamente ta a dar para a collisao do projetil com o mob!
+        //agora temos de pensar como vamos fazer com o mob
+        //como ele vai reagir
+        public List<Rectangle> CheckCollisionsMOBS(Vector2 pos)
+        {
+            List<Rectangle> Collinding = new List<Rectangle>();
+            Rectangle rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
+
+            foreach (var rectangle in Collisions.Phantoms)
+            {
+                if (rect.Intersects(rectangle.returnrecMob()) && rect != rectangle.returnrecMob())
+                {
+                    Collinding.Add(rectangle.returnrecMob());
+                }
+            }
+            return Collinding;
+        }
 
 
 

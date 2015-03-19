@@ -125,6 +125,7 @@ namespace PAC_Man
                 if (CheckCollisions(nextPosition).Count == 0)
                 {
                     position = nextPosition;
+                    if (position.X < 10 && position.Y > 279 && position.Y < 281) position = new Vector2(26 * 20, 280);
                     //cima
                     nextPosition = new Vector2(position.X, position.Y - speed * DeltaTime1);
                     if (CheckCollisions(nextPosition).Count == 0)
@@ -156,6 +157,7 @@ namespace PAC_Man
                 if (CheckCollisions(nextPosition).Count == 0)
                 {
                     position = nextPosition;
+                    if (position.X < 533 && position.X > 531 && position.Y > 279 && position.Y < 281) position = new Vector2(15, 280);
                     //cima
                     nextPosition = new Vector2(position.X, position.Y - speed * DeltaTime1);
                     if (CheckCollisions(nextPosition).Count == 0)

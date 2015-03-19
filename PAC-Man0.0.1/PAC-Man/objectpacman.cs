@@ -220,7 +220,8 @@ namespace PAC_Man
                 }
             }
             return collidingWith;
-        }        
+        }
+
 
         public List<Rectangle> CheckCollisions(Vector2 pos)
         {

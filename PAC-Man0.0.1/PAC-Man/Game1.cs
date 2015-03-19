@@ -30,6 +30,7 @@ namespace PAC_Man
         Room room;
         Mobs mobs;
         Mobs mobs0;
+        Mobs mobs1;
        
         public Game1()
             : base()
@@ -63,8 +64,11 @@ namespace PAC_Man
             Collisions.Phantoms.Add(mobs);
             mobs0 = new Mobs(280, 280-60, 100f);
             Collisions.Phantoms.Add(mobs0);
+            mobs1 = new Mobs(300, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs1);
             mobs.load(Content, "Monster1_bitt");
             mobs0.load(Content, "Monster1_bytt");
+            mobs1.load(Content, "Monster1_bytt");
 
             Score = Content.Load<SpriteFont>("MyFont");
             Lifes = Content.Load<SpriteFont>("MyFont");
@@ -87,7 +91,7 @@ namespace PAC_Man
                 novopac.Update(gameTime, room);
                 mobs.Update(gameTime);
                 mobs0.Update(gameTime);
-                
+                mobs1.Update(gameTime);
                 if (room.WinTest())
                     gamestate = GameState.Win;
             }       
@@ -111,6 +115,7 @@ namespace PAC_Man
                 novopac.Draw(spriteBatch);
                 mobs.Draw(spriteBatch);
                 mobs0.Draw(spriteBatch);
+                mobs1.Draw(spriteBatch);
                 if (objectpacman.gamestate() == true)
                     gamestate = GameState.gameOver;
             }
