@@ -189,26 +189,26 @@ namespace PAC_Man
         {
             int random;
             Random rand = new Random();
-            random = rand.Next(1, 6);
-            if (random == 1)
+            random = rand.Next(1, 7);
+            if (random == 1 || random == 2)
             {
                 status = mobState.goingDown;
                 return status;
             }
 
-            if(random == 2)
+            if(random == 3)
             {
                 status = mobState.goingLeft;
                 return status;
             }
 
-            if(random == 3)
+            if(random == 4)
             {
                 status = mobState.goingRight;
                 return status;
             }
 
-            if (random == 4 || random == 5 || random == 6)
+            if (random == 5 || random == 6 || random == 7)
             {
                 status = mobState.goingUp;
                 return status;
