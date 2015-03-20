@@ -25,14 +25,20 @@ namespace PAC_Man
         protected Rectangle Rec;
         private int textureSize = 20;
         private Random rand;
+        private int ingameactive;
 
         public Mobs(float PositionX, float PositionY, float speed)
         {
+            this.ingameactive = 1;
             this.speed = speed;
             x = PositionX;
             y = PositionY;
             position = new Vector2(x, y);
             Rec = new Rectangle((int)Math.Round(x), (int)Math.Round(y), textureSize, textureSize);
+        }
+        public void destroyFuckinMob()
+        {
+            this.ingameactive = 0;
         }
 
         public Rectangle returnrecMob()
@@ -235,7 +241,8 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(mob, new Vector2(position.X, position.Y), Color.White);
+            while( ingameactive == 1)
+                spriteBatch.Draw(mob, new Vector2(position.X, position.Y), Color.White);
         }
     }
 }
