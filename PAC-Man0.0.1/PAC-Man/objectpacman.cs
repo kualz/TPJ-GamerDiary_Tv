@@ -38,7 +38,7 @@ namespace PAC_Man
         public double rotaçao;
         float intervalo= 0.08f, timer, timerPower;
         int currentFrame;
-        public int score = 0;
+        static public int score = 0;
         public float superspeed = 0;
         private Projeteis tiros;
         public bool flag = false;
@@ -187,8 +187,7 @@ namespace PAC_Man
                 score += 5;
             }
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), TextureSize, TextureSize);
-            if (flag == true)
-                if (pacPow == PacManPower.Empower)
+            if(tiros != null)
                     tiros.update(gameTime);
             if (checkCollisionMOB(nextPosition).Count != 0)
                 gamestatechanger = true;
@@ -250,9 +249,8 @@ namespace PAC_Man
                 spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
                 spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (3 - timerPower)), new Vector2(300, 620), Color.White);
             }
-            if (flag == true)
-                if (pacPow == PacManPower.Empower)
-                    tiros.draw(spriteBatch);         
+            if (tiros != null)
+             tiros.draw(spriteBatch);         
         }
     }
 }

@@ -39,6 +39,15 @@ namespace PAC_Man
         public void destroyFuckinMob()
         {
             this.ingameactive = 0;
+
+            for (int i = Collisions.Phantoms.Count - 1; i >= 0; i--)
+            {
+                if (Collisions.Phantoms[i] == this)
+                {
+                    Collisions.Phantoms.RemoveAt(i);
+                    objectpacman.score += 30;
+                }
+            }
         }
 
         public Rectangle returnrecMob()
@@ -241,7 +250,7 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            while( ingameactive == 1)
+            if( ingameactive == 1)
                 spriteBatch.Draw(mob, new Vector2(position.X, position.Y), Color.White);
         }
     }

@@ -55,7 +55,11 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                     nextPosition = new Vector2(_position.X, (_position.Y - Pspeed * deltaTime));
                 }
             }
-            if (CheckCollisionsProjectile(nextPosition).Count != 0 || CheckCollisionsProjectileMOBS(nextPosition) != null)
+            if (CheckCollisionsProjectile(nextPosition).Count != 0 )
+            {
+                visible = false;
+            }
+            if (CheckCollisionsProjectileMOBS(nextPosition) != null)
             {   
                 visible = false;
                 CheckCollisionsProjectileMOBS(nextPosition).destroyFuckinMob();

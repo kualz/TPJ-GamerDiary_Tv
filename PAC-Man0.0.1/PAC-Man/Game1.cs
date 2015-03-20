@@ -105,11 +105,11 @@ namespace PAC_Man
 
             if (gamestate == GameState.gameOver)
             {spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
-            spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(220, 275), Color.White);
+            spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(220, 275), Color.White);
             }
             if (gamestate == GameState.running)
             {
-                spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(10, 620), Color.White);
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(10, 620), Color.White);
 
                 room.Draw(spriteBatch);
                 novopac.Draw(spriteBatch);
@@ -124,7 +124,7 @@ namespace PAC_Man
             if (gamestate == GameState.Win)
             {                
                 spriteBatch.DrawString(Score, "Good Job", new Vector2(220, 260), Color.White);
-                spriteBatch.DrawString(Score, "Score: " + novopac.score, new Vector2(220, 275), Color.White);
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(220, 275), Color.White);
                 UnloadContent();
             }
             spriteBatch.End();
