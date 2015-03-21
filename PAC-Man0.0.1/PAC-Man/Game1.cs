@@ -78,7 +78,7 @@ namespace PAC_Man
             mobs4 = new Mobs(360, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs4);
             mobs5 = new Mobs(220, 280 - 60, 100f);           
-            Collisions.Phantoms.Add(mobs4);
+            Collisions.Phantoms.Add(mobs5);
             mobs6 = new Mobs(320, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs6);
             mobs.load(Content, "Monster1_bitt");
@@ -129,13 +129,14 @@ namespace PAC_Man
             spriteBatch.Begin();
 
             if (gamestate == GameState.gameOver)
-            {spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
-            spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(220, 275), Color.White);
+            {
+                spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(220, 275), Color.White);
             }
             if (gamestate == GameState.running)
             {
                 spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(10, 620), Color.White);
-
+                spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(150, 620), Color.White);
                 room.Draw(spriteBatch);
                 novopac.Draw(spriteBatch);
                 mobs.Draw(spriteBatch);
@@ -147,6 +148,12 @@ namespace PAC_Man
                 mobs5.Draw(spriteBatch);
                 mobs6.Draw(spriteBatch);
                 if (objectpacman.gamestate() == true)
+                {
+                    //reiniciar o tabuleiro e tudo!
+                    //voltar a resetar as posiçoes e por o jogo a correr de novo
+                    gamestate = GameState.LostLife;
+                }
+                if (objectpacman.gamestateLOST() == true)
                     gamestate = GameState.gameOver;
             }
 

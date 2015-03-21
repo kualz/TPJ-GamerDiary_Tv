@@ -36,13 +36,16 @@ namespace PAC_Man
         private int TextureSize = 19;
         private Rectangle Rec;
         public double rotaçao;
-        float intervalo= 0.08f, timer, timerPower;
-        int currentFrame;
+        private float intervalo= 0.08f, timer, timerPower;
+        private int currentFrame;
         static public int score = 0;
+        static public int lifes = 1; //as vidas estao igual a 1 logo que morras é game over
+                                      //como ainda nao tou a ver como por o tabuleiro a reiniciar as vidas ficam a 1
         public float superspeed = 0;
         private Projeteis tiros;
         public bool flag = false;
         public static bool gamestatechanger = false;
+        public static bool gamestatechangerToLost = false;
 
         public objectpacman() 
         {
@@ -181,25 +184,40 @@ namespace PAC_Man
             }
             if (room.Checkcomida(position) == 4)
             {
-                pacPow = PacManPower.Empower;
-                tiros = new Projeteis(new Vector2(0,0), 0, PacMove);
-                superspeed = 0.3f;
-                room.DestroySquare(position);
-                score += 5;
+                if (pacPow == PacManPower.Empower)
+                    timerPower = 5;
+                else
+                {
+                    pacPow = PacManPower.Empower;
+                    tiros = new Projeteis(new Vector2(0, 0), 0, PacMove);
+                    superspeed = 0.3f;
+                    room.DestroySquare(position);
+                    score += 5;
+                }
             }
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), TextureSize, TextureSize);
             if(tiros != null)
                     tiros.update(gameTime);
             if (checkCollisionMOB(nextPosition).Count != 0)
+            {
+                lifes--;
                 gamestatechanger = true;
-           
-
+                if (lifes == 0)
+                    gamestatechangerToLost = true;
+            }
             gamestate();
         }
 
         public static bool gamestate()
         {
             if (gamestatechanger == true)
+                return true;
+            else return false;
+        }
+
+        public static bool gamestateLOST()
+        {
+            if (gamestatechangerToLost == true)
                 return true;
             else return false;
         }

@@ -75,6 +75,7 @@ namespace PAC_Man
 
             if(status == mobState.goingUp)
             {
+                int generated = randomGen();
                 nextPosition = new Vector2(position.X, position.Y - speed * DeltaTime1);
                 if (CheckCollisions(nextPosition).Count == 0)
                 {
@@ -83,7 +84,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X - speed * DeltaTime1, position.Y);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if(randomGen() == 1)
+                        if (generated == 1)
                         {
                             position = nextPosition;
                             status = mobState.goingLeft;
@@ -93,7 +94,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X + speed * DeltaTime1, position.Y);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if(randomGen() == 2)
+                        if (generated == 2)
                         {
                             position = nextPosition;
                             status = mobState.goingRight;
@@ -102,10 +103,12 @@ namespace PAC_Man
                 }
                 else
                     ChooseDirection(DeltaTime1);
+                generated = 0;
             }
 
             if(status == mobState.goingDown)
             {
+                int generated = randomGen();
                 nextPosition = new Vector2(position.X, position.Y + speed * DeltaTime1);
                 if (CheckCollisions(nextPosition).Count == 0)
                 {
@@ -113,7 +116,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X - speed * DeltaTime1, position.Y);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if (randomGen() == 1)
+                        if (generated == 1)
                         {
                             position = nextPosition;
                             status = mobState.goingLeft;
@@ -123,7 +126,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X + speed * DeltaTime1, position.Y);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if (randomGen() == 2)
+                        if (generated == 2)
                         {
                             position = nextPosition;
                             status = mobState.goingRight;
@@ -132,10 +135,12 @@ namespace PAC_Man
                 }
                 else
                     ChooseDirection(DeltaTime1);
+                generated = 0;
             }
 
             if(status == mobState.goingLeft)
             {
+                int genarated = randomGen();
                 nextPosition = new Vector2(position.X - speed * DeltaTime1, position.Y);
                 if (CheckCollisions(nextPosition).Count == 0)
                 {
@@ -145,7 +150,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X, position.Y - speed * DeltaTime1);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if (randomGen() == 1)
+                        if (genarated == 1)
                         {
                             position = nextPosition;
                             status = mobState.goingUp;
@@ -155,7 +160,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X, position.Y + speed * DeltaTime1);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if (randomGen() == 2)
+                        if (genarated == 2)
                         {
                             position = nextPosition;
                             status = mobState.goingDown;
@@ -164,10 +169,12 @@ namespace PAC_Man
                 }
                 else
                     ChooseDirection(DeltaTime1);
+                genarated = 0;
                 
             }
             if(status == mobState.goingRight)
             {
+                int generated = randomGen();
                 nextPosition = new Vector2(position.X + speed * DeltaTime1, position.Y);
                 if (CheckCollisions(nextPosition).Count == 0)
                 {
@@ -177,7 +184,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X, position.Y - speed * DeltaTime1);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if (randomGen() == 1)
+                        if (generated == 1)
                         {
                             position = nextPosition;
                             status = mobState.goingUp;
@@ -187,7 +194,7 @@ namespace PAC_Man
                     nextPosition = new Vector2(position.X, position.Y + speed * DeltaTime1);
                     if (CheckCollisions(nextPosition).Count == 0)
                     {
-                        if (randomGen() == 2)
+                        if (generated == 2)
                         {
                             position = nextPosition;
                             status = mobState.goingDown;
@@ -196,6 +203,7 @@ namespace PAC_Man
                 }
                 else
                     ChooseDirection(DeltaTime1);
+                generated = 0;
              }
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), textureSize, textureSize);            
         }
