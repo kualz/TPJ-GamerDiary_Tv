@@ -82,7 +82,7 @@ namespace PAC_Man
             timer += deltaTime;
             if (pacPow == PacManPower.Empower)
                 timerPower += PowerTime;
-            if (timerPower >= 3f)
+            if (timerPower >= 5f)
             {
                 pacPow = PacManPower.normal;
                 superspeed = 0;
@@ -183,7 +183,7 @@ namespace PAC_Man
             {
                 pacPow = PacManPower.Empower;
                 tiros = new Projeteis(new Vector2(0,0), 0, PacMove);
-                superspeed = 0.5f;
+                superspeed = 0.3f;
                 room.DestroySquare(position);
                 score += 5;
             }
@@ -248,7 +248,7 @@ namespace PAC_Man
             if (pacPow == PacManPower.Empower)
             { 
                 spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (3 - timerPower)), new Vector2(300, 620), Color.White);
+                spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (5 - timerPower)), new Vector2(300, 620), Color.White);
             }
             if (tiros != null)
              tiros.draw(spriteBatch);         

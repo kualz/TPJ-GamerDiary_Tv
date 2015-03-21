@@ -72,6 +72,8 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 CheckCollisionsProjectileMOBS(nextPosition).destroyFuckinMob();
                 nextPosition = new Vector2(0, 0);
             }
+            if (_position.X < 533 && _position.X > 529 && _position.Y > 275 && _position.Y < 283) nextPosition = new Vector2(15, 280);
+            if (_position.X < 15 && _position.Y > 275 && _position.Y < 285) nextPosition = new Vector2(26 * 20, 280);
             _position = nextPosition;
         }
 
@@ -95,7 +97,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 {
                     originDraw = new Vector2(-5,-7);
                 }
-                spriteBatch.Draw(projectileTEX, nextPosition, null, Color.White, 0, originDraw, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(projectileTEX, _position, null, Color.White, 0, originDraw, 1, SpriteEffects.None, 0);
                 Rec = new Rectangle((int)Math.Round(_position.X), (int)Math.Round(_position.Y), 15, 15);
             }
         }
