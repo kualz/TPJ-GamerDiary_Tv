@@ -18,6 +18,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         private float Pspeed;
         protected PacManState direction;
         static protected Texture2D projectileTEX;
+        Vector2 originDraw;
 
         public Projeteis(Vector2 startposition, int Pspeed, PacManState direction)
         {
@@ -30,6 +31,11 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         static public void load(ContentManager content)
         {
             projectileTEX = content.Load<Texture2D>("Projetil");
+        }
+
+        public bool returnVis()
+        {
+            return visible;
         }
 
         public void update(GameTime gameTime)
@@ -71,7 +77,23 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         {
             if (visible)
             {
-                spriteBatch.Draw(projectileTEX, nextPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                if (direction == PacManState.GoingDown)
+                {
+                    originDraw = new Vector2(-7,-10);
+                }
+                if (direction == PacManState.GoingLeft)
+                {
+                    originDraw = new Vector2(-5,-5);
+                }
+                if (direction == PacManState.GoingRight)
+                {
+                    originDraw = new Vector2(-12,-5);
+                }
+                if (direction == PacManState.GoingUp)
+                {
+                    originDraw = new Vector2(-5,-7);
+                }
+                spriteBatch.Draw(projectileTEX, nextPosition, null, Color.White, 0, originDraw, 1, SpriteEffects.None, 0);
                 Rec = new Rectangle((int)Math.Round(_position.X), (int)Math.Round(_position.Y), 15, 15);
             }
         }

@@ -91,9 +91,9 @@ namespace PAC_Man
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 if (pacPow == PacManPower.Empower)
-                {
-                    tiros = new Projeteis(nextPosition, 200, PacMove);
-                    flag = true;
+                {              
+                        tiros = new Projeteis(nextPosition, 200, PacMove);
+                        flag = true;
                 }
             }
             if (timer >= intervalo)
