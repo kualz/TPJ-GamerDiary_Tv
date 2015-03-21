@@ -64,11 +64,13 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             if (CheckCollisionsProjectile(nextPosition).Count != 0 )
             {
                 visible = false;
+                nextPosition = new Vector2(0, 0);
             }
             if (CheckCollisionsProjectileMOBS(nextPosition) != null)
             {   
                 visible = false;
                 CheckCollisionsProjectileMOBS(nextPosition).destroyFuckinMob();
+                nextPosition = new Vector2(0, 0);
             }
             _position = nextPosition;
         }

@@ -90,10 +90,10 @@ namespace PAC_Man
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                if (pacPow == PacManPower.Empower)
+                if (pacPow == PacManPower.Empower && tiros.returnVis() == false)
                 {              
-                        tiros = new Projeteis(nextPosition, 200, PacMove);
-                        flag = true;
+                    tiros = new Projeteis(nextPosition, 200, PacMove);
+                    flag = true;
                 }
             }
             if (timer >= intervalo)
@@ -182,6 +182,7 @@ namespace PAC_Man
             if (room.Checkcomida(position) == 4)
             {
                 pacPow = PacManPower.Empower;
+                tiros = new Projeteis(new Vector2(0,0), 0, PacMove);
                 superspeed = 0.5f;
                 room.DestroySquare(position);
                 score += 5;
