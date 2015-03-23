@@ -139,8 +139,8 @@ namespace PAC_Man
                 spriteBatch.DrawString(Score, "GAME OVER", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
                 spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
             }
-            if (gamestate == GameState.running)
-            {             
+            if (gamestate == GameState.running || gamestate == GameState.LostLife)
+            {
                 room.Draw(spriteBatch);
                 novopac.Draw(spriteBatch);
                 mobs.Draw(spriteBatch);
@@ -148,22 +148,14 @@ namespace PAC_Man
                 mobs1.Draw(spriteBatch);
                 mobs2.Draw(spriteBatch);
                 mobs3.Draw(spriteBatch);
-                mobs4.Draw(spriteBatch); 
+                mobs4.Draw(spriteBatch);
                 mobs5.Draw(spriteBatch);
                 mobs6.Draw(spriteBatch);
-                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(camera.Position.X - 200, camera.Position.Y+180), Color.White);
-                spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 120, camera.Position.Y+180), Color.White);
-                if (objectpacman.gamestate() == true)
-                {
-                    //reiniciar o tabuleiro e tudo!
-                    //voltar a resetar as posiçoes e por o jogo a correr de novo
-                    gamestate = GameState.LostLife;
-                }
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(camera.Position.X - 200, camera.Position.Y + 180), Color.White);
+                spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 120, camera.Position.Y + 180), Color.White);
                 if (objectpacman.gamestateLOST() == true)
                     gamestate = GameState.gameOver;
             }
-
-
             if (gamestate == GameState.Win)
             {
                 spriteBatch.DrawString(Score, "Good Job", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);

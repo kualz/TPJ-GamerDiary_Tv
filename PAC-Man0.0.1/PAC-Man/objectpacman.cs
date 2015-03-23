@@ -22,7 +22,8 @@ namespace PAC_Man
         public enum PacManPower
         {
             Empower,
-            normal
+            normal,
+            untergetable
         };
         public PacManPower pacPow = PacManPower.normal;
         public PacManState PacMove;
@@ -39,13 +40,14 @@ namespace PAC_Man
         private float intervalo= 0.08f, timer, timerPower;
         private int currentFrame;
         static public int score = 0;
-        static public int lifes = 1;  //as vidas estao igual a 1 logo que morras é game over
+        static public int lifes = 3;  //as vidas estao igual a 1 logo que morras é game over
                                       //como ainda nao tou a ver como por o tabuleiro a reiniciar as vidas ficam a 1
         public float superspeed = 0;
         private Projeteis tiros;
         public bool flag = false;
         public static bool gamestatechanger = false;
         public static bool gamestatechangerToLost = false;
+        private float timeUntargetble = 0;
 
         public objectpacman() 
         {
@@ -81,8 +83,20 @@ namespace PAC_Man
         {        
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float PowerTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float UntargetbleTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 nextPosition = position;
             timer += deltaTime;
+
+            #region timerUpdates
+            if (pacPow == PacManPower.untergetable)
+                timeUntargetble += UntargetbleTime;
+            if (timeUntargetble >= 3)
+            {
+                pacPow = PacManPower.normal;
+                timeUntargetble = 0;
+            }
+
+
             if (pacPow == PacManPower.Empower)
                 timerPower += PowerTime;
             if (timerPower >= 5f)
@@ -91,6 +105,9 @@ namespace PAC_Man
                 superspeed = 0;
                 timerPower = 0;
             }
+            #endregion
+
+            #region inputUpdate
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 if (pacPow == PacManPower.Empower && tiros.returnVis() == false)
@@ -99,6 +116,8 @@ namespace PAC_Man
                     flag = true;
                 }
             }
+
+
             if (timer >= intervalo)
             {
                 currentFrame++;
@@ -109,15 +128,22 @@ namespace PAC_Man
                 timer = 0;
             }
 
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 nextPosition = new Vector2(position.X - speed * deltaTime - superspeed, position.Y);
                 
                 if (CheckCollisions(nextPosition).Count == 0)
                 {
-                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                        gamestatechanger = true;
-                    else
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow != PacManPower.untergetable)
+                    {
+                        lifes--;
+                        pacPow = PacManPower.untergetable;
+                        if (lifes == 0)
+                            gamestatechangerToLost = true;
+                    }
+                    if (pacPow == PacManPower.untergetable || pacPow == PacManPower.normal || pacPow == PacManPower.Empower)
                     {
                         rotaçao = Math.PI;
                         PacMove = PacManState.GoingLeft;
@@ -132,9 +158,14 @@ namespace PAC_Man
                 
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
-                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                        gamestatechanger = true;
-                    else
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow != PacManPower.untergetable)
+                    {
+                        lifes--;
+                        pacPow = PacManPower.untergetable;
+                        if (lifes == 0)
+                            gamestatechangerToLost = true;
+                    }
+                    if (pacPow == PacManPower.untergetable || pacPow == PacManPower.normal || pacPow == PacManPower.Empower)
                     {
                         rotaçao = -Math.PI / 2;
                         PacMove = PacManState.GoingUp;
@@ -148,16 +179,20 @@ namespace PAC_Man
                 
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
-                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                        gamestatechanger = true;
-                    else
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow != PacManPower.untergetable)
+                    {
+                        lifes--;
+                        pacPow = PacManPower.untergetable;
+                        if (lifes == 0)
+                            gamestatechangerToLost = true;
+                    }
+                    if (pacPow == PacManPower.untergetable || pacPow == PacManPower.normal || pacPow == PacManPower.Empower)
                     {
                         rotaçao = 0;
                         PacMove = PacManState.GoingRight;
                         position = nextPosition;
                         if (position.X < 533 && position.X > 531 && position.Y > 279 && position.Y < 281) position = new Vector2(15, 280);
-                    }
-                    
+                    }         
                 }       
             }
 
@@ -166,9 +201,14 @@ namespace PAC_Man
                 nextPosition = new Vector2(position.X, position.Y + speed * deltaTime + superspeed);
                 if (CheckCollisions(nextPosition).Count == 0) 
                 {
-                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow == PacManPower.normal)
-                        gamestatechanger = true;
-                    else
+                    if (checkCollisionMOB(nextPosition).Count != 0 && pacPow != PacManPower.untergetable)
+                    {
+                        lifes--;
+                        pacPow = PacManPower.untergetable;
+                        if (lifes == 0)
+                            gamestatechangerToLost = true;
+                    }
+                    if (pacPow == PacManPower.untergetable || pacPow == PacManPower.normal || pacPow == PacManPower.Empower)
                     {
                         rotaçao = Math.PI / 2;
                         PacMove = PacManState.GoingDown;
@@ -177,6 +217,9 @@ namespace PAC_Man
                     
                 }
             }
+            #endregion
+
+            #region CheckComida
             if (room.Checkcomida(position) == 5)
             {
                 room.DestroySquare(position);
@@ -195,31 +238,20 @@ namespace PAC_Man
                     score += 5;
                 }
             }
+            #endregion
+
             Rec = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), TextureSize, TextureSize);
             if(tiros != null)
                     tiros.update(gameTime);
-            if (checkCollisionMOB(nextPosition).Count != 0)
-            {
-                lifes--;
-                gamestatechanger = true;
-                if (lifes == 0)
-                    gamestatechangerToLost = true;
-            }
-            gamestate();
         }
+
+
         public Vector2 ReturnPosPacmanCamera()
         {
             Vector2 novo = new Vector2();
             novo.X = position.X + 10;
             novo.Y = position.Y + 50;
             return novo;
-        }
-
-        public static bool gamestate()
-        {
-            if (gamestatechanger == true)
-                return true;
-            else return false;
         }
 
         public static bool gamestateLOST()
@@ -268,7 +300,7 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (pacPow == PacManPower.normal)
+            if (pacPow == PacManPower.normal || pacPow == PacManPower.untergetable)
                 spriteBatch.Draw(textures[currentFrame],new Vector2(position.X + 10, position.Y + 10),null,Color.White,(float)rotaçao,new Vector2(10,10),1f,SpriteEffects.None, 0f);
             if (pacPow == PacManPower.Empower)
             { 
