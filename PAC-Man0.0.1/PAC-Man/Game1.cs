@@ -15,6 +15,7 @@ namespace PAC_Man
     public class Game1 : Game
     {
         GameState gamestate;
+        
         enum GameState
         {
             Win,
@@ -36,6 +37,7 @@ namespace PAC_Man
         Mobs mobs4;
         Mobs mobs5;
         Mobs mobs6;
+        private Camera2D camera;
        
         public Game1()
             : base()
@@ -45,6 +47,8 @@ namespace PAC_Man
             graphics.PreferredBackBufferHeight = 650;
             graphics.PreferredBackBufferWidth = 560;
             Content.RootDirectory = "Content";
+            camera = new Camera2D(this);
+            Components.Add(camera);
         }
 
         
@@ -64,6 +68,8 @@ namespace PAC_Man
 
             novopac = new objectpacman();
             novopac.Load(Content);
+
+            camera.Focus = novopac;
 
             mobs = new Mobs(240, 280-60, 100f);
             Collisions.Phantoms.Add(mobs);
@@ -118,25 +124,23 @@ namespace PAC_Man
                 mobs5.Update(gameTime);
                 mobs6.Update(gameTime);
                 if (room.WinTest())
-                    gamestate = GameState.Win;
-            }       
+                    gamestate = GameState.Win;                           
+            }
             base.Update(gameTime); 
         }
         
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend, null, null,null,null,camera.Transform);
 
             if (gamestate == GameState.gameOver)
             {
-                spriteBatch.DrawString(Score, "GAME OVER", new Vector2(220, 260), Color.White);
-                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(220, 275), Color.White);
+                spriteBatch.DrawString(Score, "GAME OVER", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
             }
             if (gamestate == GameState.running)
-            {
-                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(10, 620), Color.White);
-                spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(150, 620), Color.White);
+            {             
                 room.Draw(spriteBatch);
                 novopac.Draw(spriteBatch);
                 mobs.Draw(spriteBatch);
@@ -147,6 +151,8 @@ namespace PAC_Man
                 mobs4.Draw(spriteBatch); 
                 mobs5.Draw(spriteBatch);
                 mobs6.Draw(spriteBatch);
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(camera.Position.X - 220, camera.Position.Y+200), Color.White);
+                spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 150, camera.Position.Y+200), Color.White);
                 if (objectpacman.gamestate() == true)
                 {
                     //reiniciar o tabuleiro e tudo!
@@ -159,9 +165,9 @@ namespace PAC_Man
 
 
             if (gamestate == GameState.Win)
-            {                
-                spriteBatch.DrawString(Score, "Good Job", new Vector2(220, 260), Color.White);
-                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(220, 275), Color.White);
+            {
+                spriteBatch.DrawString(Score, "Good Job", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
                 UnloadContent();
             }
             spriteBatch.End();

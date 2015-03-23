@@ -10,7 +10,7 @@ using System.Text;
 
 namespace PAC_Man
 {
-    class objectpacman
+    class objectpacman : IFocusable
     {
         public enum PacManState
         {
@@ -207,6 +207,13 @@ namespace PAC_Man
             }
             gamestate();
         }
+        public Vector2 ReturnPosPacmanCamera()
+        {
+            Vector2 novo = new Vector2();
+            novo.X = position.X + 10;
+            novo.Y = position.Y + 50;
+            return novo;
+        }
 
         public static bool gamestate()
         {
@@ -266,10 +273,15 @@ namespace PAC_Man
             if (pacPow == PacManPower.Empower)
             { 
                 spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(timer1, string.Format("Power Time {0:0.00}", (5 - timerPower)), new Vector2(300, 620), Color.White);
+                spriteBatch.DrawString(timer1, string.Format("{0:0.00}", (5 - timerPower)), new Vector2(position.X -2, position.Y + 20), Color.White,0.0f,Vector2.Zero,0.5f,SpriteEffects.None,0.0f);
             }
             if (tiros != null)
              tiros.draw(spriteBatch);         
+        }
+
+        public Vector2 Position
+        {
+            get { return position; }
         }
     }
 }
