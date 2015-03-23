@@ -151,8 +151,8 @@ namespace PAC_Man
                 mobs4.Draw(spriteBatch); 
                 mobs5.Draw(spriteBatch);
                 mobs6.Draw(spriteBatch);
-                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(camera.Position.X - 220, camera.Position.Y+200), Color.White);
-                spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 150, camera.Position.Y+200), Color.White);
+                spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(camera.Position.X - 200, camera.Position.Y+180), Color.White);
+                spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 120, camera.Position.Y+180), Color.White);
                 if (objectpacman.gamestate() == true)
                 {
                     //reiniciar o tabuleiro e tudo!

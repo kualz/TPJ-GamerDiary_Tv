@@ -39,7 +39,7 @@ namespace PAC_Man
         private float intervalo= 0.08f, timer, timerPower;
         private int currentFrame;
         static public int score = 0;
-        static public int lifes = 1; //as vidas estao igual a 1 logo que morras é game over
+        static public int lifes = 1;  //as vidas estao igual a 1 logo que morras é game over
                                       //como ainda nao tou a ver como por o tabuleiro a reiniciar as vidas ficam a 1
         public float superspeed = 0;
         private Projeteis tiros;
