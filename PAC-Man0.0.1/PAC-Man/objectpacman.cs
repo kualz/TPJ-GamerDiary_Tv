@@ -232,7 +232,7 @@ namespace PAC_Man
                 else
                 {
                     pacPow = PacManPower.Empower;
-                    tiros = new Projeteis(new Vector2(0, 0), 0, PacMove);
+                    tiros = new Projeteis(new Vector2(270,320), 0, PacMove);
                     superspeed = 0.3f;
                     room.DestroySquare(position);
                     score += 5;

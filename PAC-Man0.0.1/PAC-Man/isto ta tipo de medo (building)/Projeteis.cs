@@ -11,14 +11,19 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
     class Projeteis : objectpacman
     {
         private Vector2 _position;
-        bool visible = false;
+        bool visible = false, ExplosionSplash = false;
         private List<Projeteis> _Projeteis = new List<Projeteis>();
         private Rectangle Rec;
         protected Vector2 nextPosition;
         private float Pspeed;
         protected PacManState direction;
         static protected Texture2D projectileTEX;
+        static public Texture2D[] splash;
+        private float intervalo = 0.08f, timer;
+        private int currentFrame = 0;
         Vector2 originDraw;
+        static Vector2 aux;
+        static Rectangle rect;
 
         public Projeteis(Vector2 startposition, int Pspeed, PacManState direction)
         {
@@ -31,6 +36,16 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         static public void load(ContentManager content)
         {
             projectileTEX = content.Load<Texture2D>("Projetil");
+
+            splash = new Texture2D[7];
+            splash[0] = content.Load<Texture2D>("splash1");
+            splash[1] = content.Load<Texture2D>("splash2");
+            splash[2] = content.Load<Texture2D>("splash3");
+            splash[3] = content.Load<Texture2D>("splash4");
+            splash[4] = content.Load<Texture2D>("splash3");
+            splash[5] = content.Load<Texture2D>("splash2");
+            splash[6] = content.Load<Texture2D>("splash1");
+
         }
 
         public bool returnVis()
@@ -41,6 +56,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         public void update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timer += deltaTime;
 
             if(visible == true)
             {
@@ -63,8 +79,19 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             }
             if (CheckCollisionsProjectile(nextPosition).Count != 0 )
             {
+                rect = new Rectangle(0, 0, Rec.Width, Rec.Height);
                 visible = false;
-                nextPosition = new Vector2(0, 0);
+                ExplosionSplash = true;
+                while (timer >= intervalo)
+                {
+                    currentFrame++;
+                    if (currentFrame >= (7))
+                    {
+                        ExplosionSplash = false;
+                        break;
+                    }
+                    timer = 0;
+                }
             }
             if (CheckCollisionsProjectileMOBS(nextPosition) != null)
             {   
@@ -75,6 +102,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             if (_position.X < 533 && _position.X > 529 && _position.Y > 275 && _position.Y < 283) nextPosition = new Vector2(15, 280);
             if (_position.X < 15 && _position.Y > 275 && _position.Y < 285) nextPosition = new Vector2(26 * 20, 280);
             _position = nextPosition;
+            aux = nextPosition;
         }
 
         public void draw(SpriteBatch spriteBatch)
@@ -100,18 +128,38 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 spriteBatch.Draw(projectileTEX, _position, null, Color.White, 0, originDraw, 1, SpriteEffects.None, 0);
                 Rec = new Rectangle((int)Math.Round(_position.X), (int)Math.Round(_position.Y), 15, 15);
             }
+            if (ExplosionSplash == true && nextPosition != new Vector2(0, 0))
+            {
+                if (direction == PacManState.GoingDown)
+                {
+                    aux = new Vector2(aux.X + 10, aux.Y + 3);
+                    spriteBatch.Draw(splash[currentFrame], aux, null, Color.White, (float)(Math.PI / 2), new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                }
+                if (direction == PacManState.GoingLeft)
+                {
+                    aux = new Vector2(aux.X + 13, aux.Y + 8);
+                    spriteBatch.Draw(splash[currentFrame], aux, null, Color.White, (float)Math.PI, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                }
+                if (direction == PacManState.GoingRight)
+                {
+                    aux = new Vector2(aux.X + 5, aux.Y + 8);
+                    spriteBatch.Draw(splash[currentFrame], aux, null, Color.White, 0, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                }
+                if (direction == PacManState.GoingUp)
+                {
+                    aux = new Vector2(aux.X + 10, aux.Y + 10);
+                    spriteBatch.Draw(splash[currentFrame], aux, null, Color.White, (float)(-Math.PI / 2), new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                }           
+            }
+
         }
 
-        public void Firing()
-        {
-
-        }
 
         public List<Rectangle> CheckCollisionsProjectile(Vector2 pos)
         {
             List<Rectangle> collidingWith = new List<Rectangle>();
 
-            Rectangle rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
 
             foreach (var rectangle in Collisions.Rectangles)
             {
@@ -130,7 +178,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         public Mobs CheckCollisionsProjectileMOBS(Vector2 pos)
         {
             List<Rectangle> Collinding = new List<Rectangle>();
-            Rectangle rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
 
             foreach (Mobs Ghost in Collisions.Phantoms)
             {
