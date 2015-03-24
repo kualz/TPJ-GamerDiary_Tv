@@ -93,7 +93,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                     timer = 0;
                 }
             }
-            if (CheckCollisionsProjectileMOBS(nextPosition) != null)
+            if (CheckCollisionsProjectileMOBS(nextPosition) != null && visible == true)
             {   
                 visible = false;
                 CheckCollisionsProjectileMOBS(nextPosition).destroyFuckinMob();

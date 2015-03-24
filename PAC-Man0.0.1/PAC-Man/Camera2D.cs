@@ -111,8 +111,8 @@ namespace PAC_Man
             _viewportHeight = Game.GraphicsDevice.Viewport.Height;
 
             ScreenCenter = new Vector2(_viewportWidth/2, _viewportHeight/2);
-            Scale = 1.3f;
-            MoveSpeed = 3f;
+            Scale = 1.2f;
+            MoveSpeed = 2.3f;
 
             base.Initialize();
         }
