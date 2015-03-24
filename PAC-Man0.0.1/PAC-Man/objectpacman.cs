@@ -48,6 +48,7 @@ namespace PAC_Man
         public static bool gamestatechanger = false;
         public static bool gamestatechangerToLost = false;
         private float timeUntargetble = 0;
+        private float NewTimerUntargetble = 0;
 
         public objectpacman() 
         {
@@ -84,12 +85,21 @@ namespace PAC_Man
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float PowerTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float UntargetbleTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float TimeUntargetblenew = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 nextPosition = position;
             timer += deltaTime;
 
+
             #region timerUpdates
+
+            NewTimerUntargetble += TimeUntargetblenew;
+            if (NewTimerUntargetble >= 0.2f)
+                NewTimerUntargetble = 0;
+
             if (pacPow == PacManPower.untergetable)
+            {
                 timeUntargetble += UntargetbleTime;
+            }
             if (timeUntargetble >= 3)
             {
                 pacPow = PacManPower.normal;
@@ -309,7 +319,14 @@ namespace PAC_Man
             }
             if (pacPow == PacManPower.untergetable)
             {
-                spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.Green, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                if (NewTimerUntargetble <= 0.1f)
+                    spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.Green, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+
+                if (NewTimerUntargetble >= 0.1f)
+                {
+                    spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.White, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                }
+
                 spriteBatch.DrawString(timer1, string.Format("{0:0.00}", (3 - timeUntargetble)), new Vector2(position.X - 2, position.Y + 20), Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0.0f);
             }
             if (tiros != null)
