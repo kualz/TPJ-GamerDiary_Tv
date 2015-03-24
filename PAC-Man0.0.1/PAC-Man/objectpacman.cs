@@ -227,6 +227,14 @@ namespace PAC_Man
                     
                 }
             }
+
+            if (checkCollisionMOB(nextPosition).Count != 0 && pacPow != PacManPower.untergetable)
+            {
+                lifes--;
+                pacPow = PacManPower.untergetable;
+                if (lifes == 0)
+                    gamestatechangerToLost = true;
+            }
             #endregion
 
             #region CheckComida
