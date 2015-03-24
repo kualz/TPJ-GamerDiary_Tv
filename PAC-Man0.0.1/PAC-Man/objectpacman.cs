@@ -300,12 +300,17 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (pacPow == PacManPower.normal || pacPow == PacManPower.untergetable)
+            if (pacPow == PacManPower.normal)
                 spriteBatch.Draw(textures[currentFrame],new Vector2(position.X + 10, position.Y + 10),null,Color.White,(float)rotaçao,new Vector2(10,10),1f,SpriteEffects.None, 0f);
             if (pacPow == PacManPower.Empower)
             { 
                 spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.DarkRed, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
                 spriteBatch.DrawString(timer1, string.Format("{0:0.00}", (5 - timerPower)), new Vector2(position.X -2, position.Y + 20), Color.White,0.0f,Vector2.Zero,0.5f,SpriteEffects.None,0.0f);
+            }
+            if (pacPow == PacManPower.untergetable)
+            {
+                spriteBatch.Draw(textures[currentFrame], new Vector2(position.X + 10, position.Y + 10), null, Color.Green, (float)rotaçao, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(timer1, string.Format("{0:0.00}", (3 - timeUntargetble)), new Vector2(position.X - 2, position.Y + 20), Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0.0f);
             }
             if (tiros != null)
              tiros.draw(spriteBatch);         
