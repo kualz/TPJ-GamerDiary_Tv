@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace PAC_Man
 {
@@ -80,6 +81,12 @@ namespace PAC_Man
         private Vector2 _position;
         protected float _viewportHeight;
         protected float _viewportWidth;
+        protected float _shakeTimer;
+        protected float _shakeMagnitude = 1;
+        protected float progress;
+        protected float magnitude;
+        protected Vector2 _targetPosition, _shakeOffset;
+        bool shaking { get; set; }
 
         public Camera2D(Game game)
             : base(game) {}
@@ -135,6 +142,26 @@ namespace PAC_Man
             _position.X += (Focus.Position.X - Position.X)*MoveSpeed*delta;
             _position.Y += (Focus.Position.Y - Position.Y)*MoveSpeed*delta;
 
+            if (shaking)
+            {
+                Random rand = new Random();
+                int aux = rand.Next(1, 2);
+                _shakeTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_shakeTimer >= 0.5f)
+                {
+                    _shakeTimer = 0;
+                    shaking = false;
+                }
+                else
+                {
+                    progress = _shakeTimer / 3;
+                    magnitude = _shakeMagnitude * (1f - (progress * progress));
+                    _shakeOffset = new Vector2(NextFloat(), NextFloat()) * magnitude;
+                    if (aux == 1) Position += _shakeOffset;
+                    if (aux == 2) Position -= _shakeOffset;
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -162,6 +189,17 @@ namespace PAC_Man
             // In View
             return true;
         }
+        public float NextFloat()
+        {
+            var ran = new Random();
+            return (float) ran.NextDouble()*3f;
+        }
+
+        public void ShakeItOff()
+        {
+            shaking = true;
+        } 
+
     }
 }
 

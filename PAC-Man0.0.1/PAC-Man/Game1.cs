@@ -121,7 +121,7 @@ namespace PAC_Man
             }
             if (gamestate == GameState.running)
             {   
-                novopac.Update(gameTime, room);
+                novopac.Update(gameTime, room, camera);
                 mobs.Update(gameTime);
                 mobs0.Update(gameTime);
                 mobs1.Update(gameTime);

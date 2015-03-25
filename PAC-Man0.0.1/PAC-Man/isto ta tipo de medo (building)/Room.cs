@@ -48,86 +48,30 @@ namespace PAC_Man
         private Rectangle Rec;
         private Texture2D FOOD;
         private Texture2D FOOD1;
-        private Texture2D NoFOOD1;
         private Texture2D square;
-        private Texture2D square2;
-        private Texture2D square3;
-        private Texture2D square4;
-        private Random rand;
-        private bool mazeCreated = false;
-        List<Texture2D> texturas = new List<Texture2D>();
 
         public void Load(ContentManager content)
         {
             FOOD = content.Load<Texture2D>("Bitmap2");
-            NoFOOD1 = content.Load<Texture2D>("Bitmap3 - Copy");
             FOOD1 = content.Load<Texture2D>("Bitmap3");
             square = content.Load<Texture2D>("square");
-            square2 = content.Load<Texture2D>("square2");
-            square3 = content.Load<Texture2D>("square3");
-            square4 = content.Load<Texture2D>("square4");
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int GenRandom = 0, i = 0;
             for (int y = 0; y < board.GetLength(0); y++)
                 for (int x = 0; x < board.GetLength(1); x++)
                 {
-                    if (mazeCreated == false)
-                    {
-                        if (board[y, x] == 1)
-                        {
-                            GenRandom = RandomGen();
-                            if (GenRandom == 1)
-                            {
-                                spriteBatch.Draw(square2, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
-                                texturas.Add(square2);
-                            }
-                            if (GenRandom == 2)
-                            {
-                                spriteBatch.Draw(square3, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
-                                texturas.Add(square3);
-                            }
-                            if (GenRandom == 3)
-                            {
-                                spriteBatch.Draw(square4, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
-                                texturas.Add(square4);
-                            }
-                            if (GenRandom == 4 || GenRandom == 5 || GenRandom == 6)
-                            {
-                                spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
-                                texturas.Add(square);
-                            }
-                        }
-                    }
-                    else
-                        if (board[y, x] == 1)
-                        {
-                            if (i < texturas.Count())
-                            {
-                                spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
-                                i++;
-                            }
-                        }
+
+                    if (board[y, x] == 1)
+                        spriteBatch.Draw(square, new Vector2(x * TextureSize, y * TextureSize), Color.Blue);
                     if (board[y, x] == 2)
-                        spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                        spriteBatch.Draw(square, new Vector2(x * TextureSize, y * TextureSize), Color.White);
                     if (board[y, x] == 4)
                         spriteBatch.Draw(FOOD, new Vector2(x * TextureSize, y * TextureSize), Color.White);
                     if (board[y, x] == 5)
-                        spriteBatch.Draw(FOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
-                    if (board[y, x] == 0)
-                        spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                        spriteBatch.Draw(FOOD1, new Vector2(x * TextureSize, y * TextureSize), Color.White);
                 }
-            mazeCreated = true;
-        }
-
-        private int RandomGen()
-        {
-            int aux = 0;
-            rand = new Random(Guid.NewGuid().GetHashCode());
-            aux = rand.Next(1, 6);
-            return aux;   
         }
 
         public void InicializarColisoes()

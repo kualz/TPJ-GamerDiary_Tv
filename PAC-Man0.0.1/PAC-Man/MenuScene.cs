@@ -15,6 +15,7 @@ namespace PAC_Man
         public SpriteFont spriteFont;
         public Texture2D sprite;
         private int selectedOption;
+        private Game1 game;
 
         public MenuScene()
         {
