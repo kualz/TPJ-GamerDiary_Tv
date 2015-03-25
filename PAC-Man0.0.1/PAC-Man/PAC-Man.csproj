@@ -54,9 +54,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera2D.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="isto ta tipo de medo %28building%29\Collisions.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="isto ta tipo de medo %28building%29\Projeteis.cs" />
+    <Compile Include="MenuScene.cs" />
     <Compile Include="Mobs.cs" />
     <Compile Include="objectpacman.cs" />
     <Compile Include="Program.cs" />
@@ -84,6 +86,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\5.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Bitmap4.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Monster1_bytt.bmp">
