@@ -80,7 +80,7 @@ namespace PAC_Man
         }
 
 
-        public void Update(GameTime gameTime, Room room, Camera2D cam)
+        public void Update(GameTime gameTime, Room room)
         {        
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float PowerTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -122,7 +122,7 @@ namespace PAC_Man
             {
                 if (pacPow == PacManPower.Empower && tiros.returnVis() == false)
                 {              
-                    tiros = new Projeteis(nextPosition, 200, PacMove, cam);
+                    tiros = new Projeteis(nextPosition, 200, PacMove);
                     flag = true;
                 }
             }
@@ -250,7 +250,7 @@ namespace PAC_Man
                 else
                 {
                     pacPow = PacManPower.Empower;
-                    tiros = new Projeteis(new Vector2(270,320), 0, PacMove, cam);
+                    tiros = new Projeteis(new Vector2(270,320), 0, PacMove);
                     superspeed = 0.3f;
                     room.DestroySquare(position);
                     score += 5;

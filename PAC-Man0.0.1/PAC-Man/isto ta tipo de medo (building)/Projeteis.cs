@@ -24,15 +24,13 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         Vector2 originDraw;
         static Vector2 aux;
         static Rectangle rect;
-        Camera2D _Cam;
 
-        public Projeteis(Vector2 startposition, int Pspeed, PacManState direction,Camera2D cam)
+        public Projeteis(Vector2 startposition, int Pspeed, PacManState direction)
         {
             this._position = startposition;
             this.Pspeed = Pspeed;
             this.direction = direction;
             visible = true;
-            _Cam = cam;
         }
 
         static public void load(ContentManager content)
@@ -99,7 +97,6 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             {   
                 visible = false;
                 CheckCollisionsProjectileMOBS(nextPosition).destroyFuckinMob();
-                _Cam.ShakeItOff();
                 nextPosition = new Vector2(0, 0);
             }
             if (_position.X < 533 && _position.X > 529 && _position.Y > 275 && _position.Y < 283) nextPosition = new Vector2(15, 280);
