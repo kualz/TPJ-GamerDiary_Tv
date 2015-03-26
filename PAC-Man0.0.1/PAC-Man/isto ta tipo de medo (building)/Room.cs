@@ -102,11 +102,11 @@ namespace PAC_Man
                             }
                         }
                     }
-                    if (mazeCreated)
+                    else
                     {
                         if (board[y, x] == 1)
                         {
-                            if (i < texturas.Count())
+                            while(i<texturas.Count)
                             {
                                 spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                                 i++;
