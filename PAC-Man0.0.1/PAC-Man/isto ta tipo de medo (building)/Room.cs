@@ -106,7 +106,7 @@ namespace PAC_Man
                     {
                         if (board[y, x] == 1)
                         {
-                            while(i<texturas.Count)
+                            if(i<texturas.Count)
                             {
                                 spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                                 i++;
@@ -125,6 +125,7 @@ namespace PAC_Man
                         spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                 }
             }
+            mazeCreated = true;
         }
 
         public void InicializarColisoes()
@@ -148,7 +149,6 @@ namespace PAC_Man
                         Collisions.Bigfood.Add(Rec);
                     }
                 }
-            mazeCreated = true;
         }
 
         private int RandomGen()
