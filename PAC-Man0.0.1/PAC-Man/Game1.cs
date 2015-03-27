@@ -120,7 +120,8 @@ namespace PAC_Man
                 menuScene.Update(gameTime, this);
             }
             if (gamestate == GameState.running)
-            {   
+            {
+                room.updateportal(gameTime);
                 novopac.Update(gameTime, room, camera);
                 mobs.Update(gameTime);
                 //mobs0.Update(gameTime);

@@ -25,7 +25,7 @@ namespace PAC_Man
                          {9,9,9,9,9,1,5,1,1,0,0,0,0,0,0,0,0,0,0,1,1,5,1,9,9,9,9,9},
                          {9,9,9,9,9,1,5,1,1,0,1,1,1,1,1,1,1,1,0,1,1,5,1,9,9,9,9,9},
                          {1,1,1,1,1,1,5,1,1,0,1,2,2,2,2,2,2,1,0,1,1,5,1,1,1,1,1,1},
-                         {0,0,0,0,0,0,5,0,0,0,1,2,2,2,2,2,2,1,0,0,0,5,0,0,0,0,0,0},
+                         {7,0,0,0,0,0,5,0,0,0,1,2,2,2,2,2,2,1,0,0,0,5,0,0,0,0,0,7},
                          {1,1,1,1,1,1,5,1,1,0,1,2,2,2,2,2,2,1,0,1,1,5,1,1,1,1,1,1},
                          {9,9,9,9,9,1,5,1,1,0,1,1,1,1,1,1,1,1,0,1,1,5,1,9,9,9,9,9},
                          {9,9,9,9,9,1,5,1,1,0,0,0,0,0,0,0,0,0,0,1,1,5,1,9,9,9,9,9},
@@ -55,10 +55,18 @@ namespace PAC_Man
         private Random rand;
         private bool mazeCreated = false;
         List<Texture2D> texturas = new List<Texture2D>();
+        public Texture2D[] Portal;
         private Texture2D NoFOOD1;
+        private int currentFrame = 0;
+        private float timer, intervalo = 0.12f;
 
         public void Load(ContentManager content)
         {
+            Portal = new Texture2D[3];
+            Portal[0] = content.Load<Texture2D>("1portal");
+            Portal[1] = content.Load<Texture2D>("2portal");
+            Portal[2] = content.Load<Texture2D>("3portal");
+
             NoFOOD1 = content.Load<Texture2D>("Bitmap3 - Copy");
             FOOD = content.Load<Texture2D>("Bitmap2");
             FOOD1 = content.Load<Texture2D>("Bitmap3");
@@ -114,9 +122,27 @@ namespace PAC_Man
                         spriteBatch.Draw(FOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                     if (board[y, x] == 0)
                         spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.Black);
+                    if (board[y,x] == 7)
+                        spriteBatch.Draw(Portal[currentFrame], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                 }
             }
             mazeCreated = true;
+        }
+
+        public void updateportal(GameTime gametime)
+        {
+            float deltaTime = (float)gametime.ElapsedGameTime.TotalSeconds;
+            timer += deltaTime;
+            if (timer >= intervalo)
+            {
+                currentFrame++;
+                if (currentFrame >= (3))
+                {
+                    currentFrame = 0;
+                }
+                timer = 0;
+            }
+
         }
 
 
