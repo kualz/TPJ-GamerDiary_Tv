@@ -51,14 +51,16 @@ namespace PAC_Man
         private Texture2D square;
         private Texture2D square2;
         private Texture2D square3;
-        private Texture2D square4;
+        private Texture2D[] square4;
         private Random rand;
         private bool mazeCreated = false;
-        List<Texture2D> texturas = new List<Texture2D>();
+        private List<Texture2D> texturas = new List<Texture2D>();
         public Texture2D[] Portal;
         private Texture2D NoFOOD1;
-        private int currentFrame = 0;
-        private float timer, intervalo = 0.12f;
+        private int currentFrame = 0, currentFrameTexturas = 0;
+        private float timer, intervalo = 0.12f, timerTexturas;
+        private GameTime gameTime;
+        private int GenRandom = 0;
 
         public void Load(ContentManager content)
         {
@@ -70,12 +72,21 @@ namespace PAC_Man
             NoFOOD1 = content.Load<Texture2D>("Bitmap3 - Copy");
             FOOD = content.Load<Texture2D>("Bitmap2");
             FOOD1 = content.Load<Texture2D>("Bitmap3");
-            square = content.Load<Texture2D>("square");
-            square2 = content.Load<Texture2D>("square2");
-            square3 = content.Load<Texture2D>("square3");
-            square4 = content.Load<Texture2D>("square4");
 
-            int GenRandom = 0;
+            square = content.Load<Texture2D>("square");
+
+            square2 = content.Load<Texture2D>("square2");
+            
+            
+            square3 = content.Load<Texture2D>("square3");
+
+
+
+            square4 = new Texture2D[2];
+            square4[0] = content.Load<Texture2D>("square4");
+            square4[1] = content.Load<Texture2D>("square4.1");
+
+            
             for (int y = 0; y < board.GetLength(0); y++)
             {
                 for (int x = 0; x < board.GetLength(1); x++)
@@ -90,7 +101,7 @@ namespace PAC_Man
                             if (GenRandom == 1)
                                 texturas.Add(square3);
                             if (GenRandom == 2)
-                                texturas.Add(square4);
+                                texturas.Add(square4[0]);
                             if (GenRandom == 3 || GenRandom == 4)
                                 texturas.Add(square);
                         }
@@ -110,7 +121,10 @@ namespace PAC_Man
                     {
                         if (i < texturas.Count)
                         {
-                            spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                            if (texturas[i] == texturas[4])
+                                spriteBatch.Draw(square4[currentFrameTexturas], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                            else
+                                spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                             i++;
                         }
                     }
@@ -132,6 +146,7 @@ namespace PAC_Man
         public void updateportal(GameTime gametime)
         {
             float deltaTime = (float)gametime.ElapsedGameTime.TotalSeconds;
+            timerTexturas += deltaTime;
             timer += deltaTime;
             if (timer >= intervalo)
             {
@@ -141,6 +156,16 @@ namespace PAC_Man
                     currentFrame = 0;
                 }
                 timer = 0;
+            }
+
+            if (timerTexturas >= (0.5))
+            {
+                currentFrameTexturas++;
+                if (currentFrameTexturas >= (2))
+                {
+                    currentFrameTexturas = 0;
+                }
+                timerTexturas = 0;
             }
 
         }
