@@ -87,7 +87,6 @@ namespace PAC_Man
                                 texturas.Add(square);
                         }
                     }
-<<<<<<< HEAD
                 }
             }
         }
@@ -99,24 +98,14 @@ namespace PAC_Man
             {
                 for (int x = 0; x < board.GetLength(1); x++)
                 {
-                   
-                    if (mazeCreated)
-=======
-                    else
->>>>>>> origin/master
+                    if (board[y, x] == 1)
                     {
-                        if (board[y, x] == 1)
+                        if (i < texturas.Count)
                         {
-                            if(i<texturas.Count)
-                            {
-                                spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
-                                i++;
-                            }
+                            spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                            i++;
                         }
                     }
-
-
-
                     if (board[y, x] == 2)
                         spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                     if (board[y, x] == 4)
@@ -124,7 +113,7 @@ namespace PAC_Man
                     if (board[y, x] == 5)
                         spriteBatch.Draw(FOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                     if (board[y, x] == 0)
-                        spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                        spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.Black);
                 }
             }
             mazeCreated = true;

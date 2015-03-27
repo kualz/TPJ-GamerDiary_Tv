@@ -94,6 +94,12 @@
     <Content Include="Content\Bitmap4.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Monster3_bitt.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Monster2_bitt.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Monster1_bytt.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -21,11 +21,14 @@ namespace PAC_Man
         protected float speed;
         protected Vector2 position;
         protected float x, y;
-        protected Texture2D mob;
+        protected Texture2D[] mob;
         protected Rectangle Rec;
         private int textureSize = 20;
         private Random rand;
         private int ingameactive;
+        private float timer = 0f;
+        private float intervalo = 0.15f;
+        private int currentFrame = 0;
 
         public Mobs(float PositionX, float PositionY, float speed)
         {
@@ -55,9 +58,13 @@ namespace PAC_Man
             return Rec;
         }
 
-        public void load(ContentManager content, string nomeSpriteMob)
+        public void load(ContentManager content)
         {
-            mob = content.Load<Texture2D>(nomeSpriteMob);
+            mob = new Texture2D[3];
+
+            mob[0] = content.Load<Texture2D>("Monster1_bitt");
+            mob[1] = content.Load<Texture2D>("Monster2_bitt");
+            mob[2] = content.Load<Texture2D>("Monster3_bitt");
         }
 
         public int randomGen()
@@ -72,6 +79,20 @@ namespace PAC_Man
         {
             float DeltaTime1 = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 nextPosition = position;
+
+            timer += DeltaTime1;
+
+            if(timer >= intervalo)
+            {
+                currentFrame++;
+                if (currentFrame >= (3))
+                {
+                    currentFrame = 0;
+                }
+                timer = 0;
+            }
+
+
 
             if(status == mobState.goingUp)
             {
@@ -258,8 +279,8 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if( ingameactive == 1)
-                spriteBatch.Draw(mob, new Vector2(position.X, position.Y), Color.White);
+            if( ingameactive == 1) 
+                spriteBatch.Draw(mob[currentFrame], new Vector2(position.X, position.Y), Color.White);
         }
     }
 }
