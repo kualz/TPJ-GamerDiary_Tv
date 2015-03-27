@@ -46,8 +46,8 @@ namespace PAC_Man
         private List<Rectangle> Colisoes = new List<Rectangle>();
         private int TextureSize = 20;
         private Rectangle Rec;
-        private Texture2D FOOD;
-        private Texture2D FOOD1;
+        private Texture2D[] FOOD;
+        private Texture2D[] FOOD1;
         private Texture2D square;
         private Texture2D square2;
         private Texture2D square3;
@@ -57,8 +57,8 @@ namespace PAC_Man
         private List<Texture2D> texturas = new List<Texture2D>();
         public Texture2D[] Portal;
         private Texture2D NoFOOD1;
-        private int currentFrame = 0, currentFrameTexturas = 0;
-        private float timer, intervalo = 0.12f, timerTexturas;
+        private int currentFrame = 0, currentFrameTexturas = 0, currentFrameBigFood = 0;
+        private float timer, intervalo = 0.12f, timerTexturas, texturaFood;
         private GameTime gameTime;
         private int GenRandom = 0;
 
@@ -69,9 +69,21 @@ namespace PAC_Man
             Portal[1] = content.Load<Texture2D>("2portal");
             Portal[2] = content.Load<Texture2D>("3portal");
 
-            NoFOOD1 = content.Load<Texture2D>("Bitmap3 - Copy");
-            FOOD = content.Load<Texture2D>("Bitmap2");
-            FOOD1 = content.Load<Texture2D>("Bitmap3");
+            NoFOOD1 = content.Load<Texture2D>("Bitmap3");
+
+            FOOD = new Texture2D[7];
+            FOOD[0] = content.Load<Texture2D>("Bitmap2");
+            FOOD[1] = content.Load<Texture2D>("Bitmap2.3");
+            FOOD[2] = content.Load<Texture2D>("Bitmap2.2");
+            FOOD[3] = content.Load<Texture2D>("Bitmap2.1");
+            FOOD[4] = content.Load<Texture2D>("Bitmap2.2");
+            FOOD[5] = content.Load<Texture2D>("Bitmap2.3");
+            FOOD[6] = content.Load<Texture2D>("Bitmap2");
+
+            FOOD1 = new Texture2D[3];
+            FOOD1[0] = content.Load<Texture2D>("Bitmap3");
+            FOOD1[1] = content.Load<Texture2D>("Bitmap3.1");
+            FOOD1[2] = content.Load<Texture2D>("Bitmap3.2");
 
             square = content.Load<Texture2D>("square");
 
@@ -131,9 +143,9 @@ namespace PAC_Man
                     if (board[y, x] == 2)
                         spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                     if (board[y, x] == 4)
-                        spriteBatch.Draw(FOOD, new Vector2(x * TextureSize, y * TextureSize), Color.White);
+                        spriteBatch.Draw(FOOD[currentFrameBigFood], new Vector2(x * TextureSize, y * TextureSize), Color.White);
                     if (board[y, x] == 5)
-                        spriteBatch.Draw(FOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                        spriteBatch.Draw(FOOD1[currentFrame], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                     if (board[y, x] == 0)
                         spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.Black);
                     if (board[y,x] == 7)
@@ -148,6 +160,7 @@ namespace PAC_Man
             float deltaTime = (float)gametime.ElapsedGameTime.TotalSeconds;
             timerTexturas += deltaTime;
             timer += deltaTime;
+            texturaFood += deltaTime;
             if (timer >= intervalo)
             {
                 currentFrame++;
@@ -168,6 +181,16 @@ namespace PAC_Man
                 timerTexturas = 0;
             }
 
+
+            if (texturaFood >= (0.08))
+            {
+                currentFrameBigFood++;
+                if (currentFrameBigFood >= (7))
+                {
+                    currentFrameBigFood = 0;
+                }
+                texturaFood = 0;
+            }
         }
 
 

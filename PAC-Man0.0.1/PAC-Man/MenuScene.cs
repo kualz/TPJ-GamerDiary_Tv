@@ -54,8 +54,6 @@ namespace PAC_Man
                         game.Exit();
                         break;
                 }
-
-
         }
 
         public void Draw(SpriteBatch spriteBatch)

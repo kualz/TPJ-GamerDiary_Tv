@@ -22,6 +22,7 @@ namespace PAC_Man
             LostLife,
             MenuScene
         };
+        public GameState gameStateAnt;
         public GameState gamestate;
         private MenuScene menuScene;
         private objectpacman novopac;
@@ -60,7 +61,6 @@ namespace PAC_Man
             gamestate = GameState.MenuScene;
         }
 
-        
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(this.GraphicsDevice);
@@ -118,6 +118,7 @@ namespace PAC_Man
             if (gamestate == GameState.MenuScene)
             {
                 menuScene.Update(gameTime, this);
+                gameStateAnt = gamestate;
             }
             if (gamestate == GameState.running)
             {
@@ -135,7 +136,8 @@ namespace PAC_Man
                     gamestate = GameState.Win;    
                 if(Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
-                    gamestate = GameState.MenuScene;
+                    gameStateAnt = gamestate;
+                    gamestate = GameState.MenuScene;                   
                 }
             }
 
