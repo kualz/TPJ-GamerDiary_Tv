@@ -21,7 +21,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         static public Texture2D[] splash;
         private float intervalo = 0.08f, timer;
         private int currentFrame = 0;
-        Vector2 originDraw;
+        private Vector2 originDraw;
         static Vector2 aux;
         static Rectangle rect;
         Camera2D _Cam;

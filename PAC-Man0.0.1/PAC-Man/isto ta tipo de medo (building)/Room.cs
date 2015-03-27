@@ -66,11 +66,8 @@ namespace PAC_Man
             square2 = content.Load<Texture2D>("square2");
             square3 = content.Load<Texture2D>("square3");
             square4 = content.Load<Texture2D>("square4");
-        }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            int GenRandom = 0, i = 0;
+            int GenRandom = 0;
             for (int y = 0; y < board.GetLength(0); y++)
             {
                 for (int x = 0; x < board.GetLength(1); x++)
@@ -80,28 +77,28 @@ namespace PAC_Man
                         if (board[y, x] == 1)
                         {
                             GenRandom = RandomGen();
-                            if (GenRandom == 1)
-                            {
-                                spriteBatch.Draw(square2, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                            if (GenRandom == 0)
                                 texturas.Add(square2);
-                            }
-                            if (GenRandom == 2)
-                            {
-                                spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                            if (GenRandom == 1)
                                 texturas.Add(square3);
-                            }
-                            if (GenRandom == 3)
-                            {
-                                spriteBatch.Draw(square4, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                            if (GenRandom == 2)
                                 texturas.Add(square4);
-                            }
-                            if (GenRandom == 4 || GenRandom == 5 || GenRandom == 6)
-                            {
-                                spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                            if (GenRandom == 3 || GenRandom == 4)
                                 texturas.Add(square);
-                            }
                         }
                     }
+                }
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            int i = 0;
+            for (int y = 0; y < board.GetLength(0); y++)
+            {
+                for (int x = 0; x < board.GetLength(1); x++)
+                {
+                   
                     if (mazeCreated)
                     {
                         if (board[y, x] == 1)
@@ -113,8 +110,9 @@ namespace PAC_Man
                             }
                         }
                     }
-                    if (board[y, x] == 1)
-                        spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+
+
+
                     if (board[y, x] == 2)
                         spriteBatch.Draw(square, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                     if (board[y, x] == 4)
@@ -125,7 +123,9 @@ namespace PAC_Man
                         spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                 }
             }
+            mazeCreated = true;
         }
+
 
         public void InicializarColisoes()
         {
@@ -148,14 +148,13 @@ namespace PAC_Man
                         Collisions.Bigfood.Add(Rec);
                     }
                 }
-            mazeCreated = true;
         }
 
         private int RandomGen()
         {
             int aux = 0;
             rand = new Random(Guid.NewGuid().GetHashCode());
-            aux = rand.Next(1, 6);
+            aux = rand.Next(0, 5);
             return aux;
         }
 
