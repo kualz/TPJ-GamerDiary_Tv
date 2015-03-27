@@ -145,9 +145,10 @@ namespace PAC_Man
             if (shaking)
             {
                 Random rand = new Random();
-                int aux = rand.Next(1, 2);
+                int aux = rand.Next(-2, 2);
+                int aux2 = rand.Next(-2, 2);
                 _shakeTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (_shakeTimer >= 0.5f)
+                if (_shakeTimer >= 0.3f)
                 {
                     _shakeTimer = 0;
                     shaking = false;
@@ -156,9 +157,8 @@ namespace PAC_Man
                 {
                     progress = _shakeTimer / 3;
                     magnitude = _shakeMagnitude * (1f - (progress * progress));
-                    _shakeOffset = new Vector2(NextFloat(), NextFloat()) * magnitude;
-                    if (aux == 1) Position += _shakeOffset;
-                    if (aux == 2) Position -= _shakeOffset;
+                    _shakeOffset = new Vector2(NextFloat() * aux, NextFloat() * aux2) * magnitude;
+                    Position += _shakeOffset;
                 }
             }
 
@@ -192,7 +192,7 @@ namespace PAC_Man
         public float NextFloat()
         {
             var ran = new Random();
-            return (float) ran.NextDouble()*3f;
+            return (float) ran.NextDouble()*5f;
         }
 
         public void ShakeItOff()

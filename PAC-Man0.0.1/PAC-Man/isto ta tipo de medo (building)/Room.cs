@@ -87,6 +87,7 @@ namespace PAC_Man
                                 texturas.Add(square);
                         }
                     }
+<<<<<<< HEAD
                 }
             }
         }
@@ -100,10 +101,13 @@ namespace PAC_Man
                 {
                    
                     if (mazeCreated)
+=======
+                    else
+>>>>>>> origin/master
                     {
                         if (board[y, x] == 1)
                         {
-                            if (i < texturas.Count())
+                            if(i<texturas.Count)
                             {
                                 spriteBatch.Draw(texturas[i], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
                                 i++;

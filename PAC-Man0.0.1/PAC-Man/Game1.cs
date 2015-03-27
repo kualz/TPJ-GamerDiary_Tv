@@ -160,6 +160,7 @@ namespace PAC_Man
                 {
                     spriteBatch.DrawString(Score, "GAME OVER", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
                     spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
+                    gamestate = GameState.MenuScene;
                 }
                 if (gamestate == GameState.running || gamestate == GameState.LostLife)
                 {
@@ -182,7 +183,7 @@ namespace PAC_Man
                 {
                     spriteBatch.DrawString(Score, "Good Job", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
                     spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
-                    UnloadContent();
+
                 }
             }
             spriteBatch.End();
