@@ -58,13 +58,13 @@ namespace PAC_Man
             return Rec;
         }
 
-        public void load(ContentManager content)
+        public void load(ContentManager content, string textureMode0, string textureMode1, string textureMode2)
         {
             mob = new Texture2D[3];
 
-            mob[0] = content.Load<Texture2D>("Monster1_bitt");
-            mob[1] = content.Load<Texture2D>("Monster2_bitt");
-            mob[2] = content.Load<Texture2D>("Monster3_bitt");
+            mob[0] = content.Load<Texture2D>(textureMode0);
+            mob[1] = content.Load<Texture2D>(textureMode1);
+            mob[2] = content.Load<Texture2D>(textureMode2);
         }
 
         public int randomGen()
