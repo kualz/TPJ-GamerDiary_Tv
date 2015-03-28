@@ -15,6 +15,7 @@ namespace PAC_Man
         public SpriteFont spriteFont;
         public Texture2D sprite;
         private int selectedOption;
+        public bool isRunning = false;
 
         public MenuScene()
         {
@@ -23,10 +24,11 @@ namespace PAC_Man
 
         public void Load(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Bitmap4");
+            sprite = content.Load<Texture2D>("Bitmap4 - Copy");
             spriteFont = content.Load<SpriteFont>("MyFont");
 
-            Options.Add("Start");
+            Options.Add("Continue");
+            Options.Add("Start new Game");
             Options.Add("Exit");
         }
 
@@ -48,9 +50,17 @@ namespace PAC_Man
                 switch (selectedOption)
                 {
                     case 0:
-                        game.gamestate = Game1.GameState.running;
+                        //if(isRunning == true)
+                            game.gamestate = Game1.GameState.running;
                         break;
                     case 1:
+                        {
+                            isRunning = true;
+                            game.loadReset();
+                            game.gamestate = Game1.GameState.running;
+                        }
+                        break;  
+                    case 2:
                         game.Exit();
                         break;
                 }
@@ -58,13 +68,17 @@ namespace PAC_Man
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite,new Rectangle(80, 80, 120, 120), Color.CadetBlue);
+            spriteBatch.Draw(sprite,new Rectangle(80, 80, 190, 150), Color.CadetBlue);
             for (int i = 0; i < Options.Count; i++)
             {
-                if(selectedOption != i)
+                if (selectedOption != i)
+                {
                     spriteBatch.DrawString(spriteFont, Options[i], new Vector2(100, 100 + i * 40), Color.Black);
+                }
                 else
+                {
                     spriteBatch.DrawString(spriteFont, Options[i], new Vector2(100, 100 + i * 40), Color.Orange);
+                }
             }
         }
     }

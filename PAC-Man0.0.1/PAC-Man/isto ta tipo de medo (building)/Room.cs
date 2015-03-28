@@ -59,7 +59,6 @@ namespace PAC_Man
         private Texture2D NoFOOD1;
         private int currentFrame = 0, currentFrameTexturas = 0, currentFrameBigFood = 0;
         private float timer, intervalo = 0.12f, timerTexturas, texturaFood;
-        private GameTime gameTime;
         private int GenRandom = 0;
 
         public void Load(ContentManager content)

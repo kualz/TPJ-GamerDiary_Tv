@@ -112,7 +112,7 @@
     <Content Include="Content\Bitmap3.1.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Bitmap4.bmp">
+    <Content Include="Content\Bitmap4 - Copy.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Monster2_bytt.bmp">

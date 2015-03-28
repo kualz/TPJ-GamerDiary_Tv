@@ -39,14 +39,15 @@ namespace PAC_Man
         public double rotaçao;
         private float intervalo= 0.08f, timer, timerPower;
         private int currentFrame;
+
         static public int score = 0;
-        static public int lifes = 3;  //as vidas estao igual a 1 logo que morras é game over
-                                      //como ainda nao tou a ver como por o tabuleiro a reiniciar as vidas ficam a 1
+        static public int lifes = 3; 
+
         public float superspeed = 0;
         private Projeteis tiros;
         public bool flag = false;
         public static bool gamestatechanger = false;
-        public static bool gamestatechangerToLost = false;
+        public bool gamestatechangerToLost = false;
         private float timeUntargetble = 0;
         private float NewTimerUntargetble = 0;
 
@@ -79,6 +80,12 @@ namespace PAC_Man
             timer2 = content.Load<SpriteFont>("Myfont");
         }
 
+        public void ResetPacVariables()
+        {
+            score = 0;
+            lifes = 3;
+            gamestatechanger = false;
+        }
 
         public void Update(GameTime gameTime, Room room, Camera2D cam)
         {        
@@ -227,6 +234,9 @@ namespace PAC_Man
                     
                 }
             }
+            #endregion
+
+            #region CheckComida
 
             if (checkCollisionMOB(nextPosition).Count != 0 && pacPow != PacManPower.untergetable)
             {
@@ -235,9 +245,7 @@ namespace PAC_Man
                 if (lifes == 0)
                     gamestatechangerToLost = true;
             }
-            #endregion
 
-            #region CheckComida
             if (room.Checkcomida(position) == 5)
             {
                 room.DestroySquare(position);
@@ -272,7 +280,7 @@ namespace PAC_Man
             return novo;
         }
 
-        public static bool gamestateLOST()
+        public bool gamestateLOST()
         {
             if (gamestatechangerToLost == true)
                 return true;
@@ -281,9 +289,6 @@ namespace PAC_Man
 
         public List<Rectangle> checkCollisionMOB(Vector2 pos)
         {
-            //retangulo pac e rectangulo mob
-            //intersect
-
             List<Rectangle> collidingWith = new List<Rectangle>();
             Rectangle rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
 

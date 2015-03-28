@@ -17,6 +17,13 @@ namespace PAC_Man
             Bigfood = new List<Rectangle>();
             Phantoms = new List<Mobs>();
         }
-        // Sempre que crias uma parede no jogo, adicionas aqui a esta lista de Rectangles, basicamente.
+
+        public static void Reset()
+        {
+            Rectangles.Clear();
+            Food.Clear();
+            Bigfood.Clear();
+            Phantoms.Clear();
+        }
     }
 }

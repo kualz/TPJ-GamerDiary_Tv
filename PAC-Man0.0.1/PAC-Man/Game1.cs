@@ -53,7 +53,6 @@ namespace PAC_Man
             menuScene = new MenuScene();
             Components.Add(camera);
         }
-
         
         protected override void Initialize()
         {
@@ -61,9 +60,11 @@ namespace PAC_Man
             gamestate = GameState.MenuScene;
         }
 
-        protected override void LoadContent()
+        public void Load()
         {
-            spriteBatch = new SpriteBatch(this.GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            menuScene = new MenuScene();
             menuScene.Load(Content);
 
             room = new Room();
@@ -72,12 +73,11 @@ namespace PAC_Man
 
             novopac = new objectpacman();
             novopac.Load(Content);
-
             camera.Focus = novopac;
 
-            mobs = new Mobs(240, 280-60, 100f);
+            mobs = new Mobs(240, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs);
-            mobs0 = new Mobs(280, 280-60, 100f);
+            mobs0 = new Mobs(280, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs0);
             mobs1 = new Mobs(300, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs1);
@@ -87,7 +87,7 @@ namespace PAC_Man
             Collisions.Phantoms.Add(mobs3);
             mobs4 = new Mobs(360, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs4);
-            mobs5 = new Mobs(220, 280 - 60, 100f);           
+            mobs5 = new Mobs(220, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs5);
             mobs6 = new Mobs(320, 280 - 60, 100f);
             Collisions.Phantoms.Add(mobs6);
@@ -104,93 +104,136 @@ namespace PAC_Man
             Lifes = Content.Load<SpriteFont>("MyFont");
         }
 
+        public void loadReset()
+        {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Collisions.Reset();
+
+            menuScene = new MenuScene();
+            menuScene.Load(Content);
+
+            room = new Room();
+            room.Load(Content);
+            room.InicializarColisoes();
+
+            novopac = new objectpacman();
+            novopac.ResetPacVariables();
+            novopac.Load(Content);
+            camera.Focus = novopac;
+
+            mobs = new Mobs(240, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs);
+            mobs0 = new Mobs(280, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs0);
+            mobs1 = new Mobs(300, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs1);
+            mobs2 = new Mobs(320, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs2);
+            mobs3 = new Mobs(340, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs3);
+            mobs4 = new Mobs(360, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs4);
+            mobs5 = new Mobs(220, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs5);
+            mobs6 = new Mobs(320, 280 - 60, 100f);
+            Collisions.Phantoms.Add(mobs6);
+            mobs.load(Content, "Monster1_bitt", "Monster2_bitt", "Monster3_bitt");
+            mobs4.load(Content, "Monster1_bytt", "Monster2_bytt", "Monster3_bytt");
+            mobs0.load(Content, "Monster1_bytt", "Monster2_bytt", "Monster3_bytt");
+            mobs1.load(Content, "Monster1_bytt", "Monster2_bytt", "Monster3_bytt");
+            mobs2.load(Content, "Monster1_bitt", "Monster2_bitt", "Monster3_bitt");
+            mobs3.load(Content, "Monster1_bitt", "Monster2_bitt", "Monster3_bitt");
+            mobs5.load(Content, "Monster1_bitt", "Monster2_bitt", "Monster3_bitt");
+            mobs6.load(Content, "Monster1_bitt", "Monster2_bitt", "Monster3_bitt");
+
+            Score = Content.Load<SpriteFont>("MyFont");
+            Lifes = Content.Load<SpriteFont>("MyFont");
+
+        }
+
+        protected override void LoadContent()
+        {
+            if (menuScene.isRunning == false)
+                Load();
+        }
         
         protected override void UnloadContent()
         {
-           
           
         }
-
-        
+     
         protected override void Update(GameTime gameTime)
         {
             Input.Update();
-            if (gamestate == GameState.MenuScene)
-            {
-                menuScene.Update(gameTime, this);
-                gameStateAnt = gamestate;
-            }
-            if (gamestate == GameState.running)
-            {
-                room.updateportal(gameTime);
-                novopac.Update(gameTime, room, camera);
-                mobs.Update(gameTime);
-                mobs0.Update(gameTime);
-                mobs1.Update(gameTime);
-                mobs2.Update(gameTime);
-                mobs3.Update(gameTime);
-                mobs4.Update(gameTime);
-                mobs5.Update(gameTime);
-                mobs6.Update(gameTime);
-                if (room.WinTest())
-                    gamestate = GameState.Win;    
-                if(Keyboard.GetState().IsKeyDown(Keys.Escape))
+                if (gamestate == GameState.MenuScene)
                 {
-                    gameStateAnt = gamestate;
-                    gamestate = GameState.MenuScene;                   
+                    menuScene.Update(gameTime, this);
                 }
-            }
-
-
-
+                if (gamestate == GameState.running)
+                {
+                    room.updateportal(gameTime);
+                    novopac.Update(gameTime, room, camera);
+                    mobs.Update(gameTime);
+                    mobs0.Update(gameTime);
+                    mobs1.Update(gameTime);
+                    mobs2.Update(gameTime);
+                    mobs3.Update(gameTime);
+                    mobs4.Update(gameTime);
+                    mobs5.Update(gameTime);
+                    mobs6.Update(gameTime);
+                    if (room.WinTest())
+                        gamestate = GameState.Win;
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    {
+                        gamestate = GameState.MenuScene;
+                    }
+                 }
             base.Update(gameTime); 
         }
         
         protected override void Draw(GameTime gameTime)
         {
-            if (gamestate == GameState.MenuScene)
-            {
-                spriteBatch.Begin();
-                menuScene.Draw(spriteBatch);
-                spriteBatch.End();
-            }
-            if (gamestate == GameState.running || gamestate == GameState.LostLife || gamestate == GameState.gameOver)
-            {
-                GraphicsDevice.Clear(Color.Black);
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
-
-                if (gamestate == GameState.gameOver)
+                if (gamestate == GameState.MenuScene)
                 {
-                    spriteBatch.DrawString(Score, "GAME OVER", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
-                    spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
-                    gamestate = GameState.MenuScene;
+                    spriteBatch.Begin();
+                    menuScene.Draw(spriteBatch);
+                    spriteBatch.End();
                 }
-                if (gamestate == GameState.running || gamestate == GameState.LostLife)
+                if (gamestate == GameState.running || gamestate == GameState.LostLife || gamestate == GameState.gameOver || gamestate == GameState.Win)
                 {
-                    room.Draw(spriteBatch);
-                    novopac.Draw(spriteBatch);
-                    mobs.Draw(spriteBatch);
-                    mobs0.Draw(spriteBatch);
-                    mobs1.Draw(spriteBatch);
-                    mobs2.Draw(spriteBatch);
-                    mobs3.Draw(spriteBatch);
-                    mobs4.Draw(spriteBatch);
-                    mobs5.Draw(spriteBatch);
-                    mobs6.Draw(spriteBatch);
-                    spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(camera.Position.X - 200, camera.Position.Y + 180), Color.White);
-                    spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 120, camera.Position.Y + 180), Color.White);
-                    if (objectpacman.gamestateLOST() == true)
-                        gamestate = GameState.gameOver;
+                    GraphicsDevice.Clear(Color.Black);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
+                    if (gamestate == GameState.gameOver)
+                    {
+                        spriteBatch.DrawString(Score, "GAME OVER", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
+                        spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
+                        gamestate = GameState.MenuScene;
+                    }
+                    if (gamestate == GameState.Win)
+                    {
+                        spriteBatch.DrawString(Score, "Good Job", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
+                        spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
+                        gamestate = GameState.MenuScene;
+                    }
+                    if (gamestate == GameState.running || gamestate == GameState.LostLife)
+                    {
+                        room.Draw(spriteBatch);
+                        novopac.Draw(spriteBatch);
+                        mobs.Draw(spriteBatch);
+                        mobs0.Draw(spriteBatch);
+                        mobs1.Draw(spriteBatch);
+                        mobs2.Draw(spriteBatch);
+                        mobs3.Draw(spriteBatch);
+                        mobs4.Draw(spriteBatch);
+                        mobs5.Draw(spriteBatch);
+                        mobs6.Draw(spriteBatch);
+                        spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(camera.Position.X - 200, camera.Position.Y + 180), Color.White);
+                        spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 120, camera.Position.Y + 180), Color.White);
+                        if (novopac.gamestateLOST() == true)
+                            gamestate = GameState.gameOver;
+                    }
+                    spriteBatch.End();
                 }
-                if (gamestate == GameState.Win)
-                {
-                    spriteBatch.DrawString(Score, "Good Job", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
-                    spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
-
-                }
-            }
-            spriteBatch.End();
-
             base.Draw(gameTime);
         }
 
