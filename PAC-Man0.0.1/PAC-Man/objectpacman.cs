@@ -37,6 +37,7 @@ namespace PAC_Man
         public SoundEffect coin1;
         public SoundEffect coin10;
         public SoundEffect megatiro;
+        public SoundEffect teleport;
         private float speed;
         private int TextureSize = 19;
         private Rectangle Rec;
@@ -85,6 +86,7 @@ namespace PAC_Man
             coin1 = content.Load<SoundEffect>("coin1");
             coin10 = content.Load<SoundEffect>("coin10");
             megatiro = content.Load<SoundEffect>("tiro");
+            teleport = content.Load<SoundEffect>("teleport");
         }
 
         public void ResetPacVariables()
@@ -137,7 +139,7 @@ namespace PAC_Man
                 if (pacPow == PacManPower.Empower && tiros.returnVis() == false)
                 {              
                     tiros = new Projeteis(nextPosition, 200, PacMove, cam);
-                    megatiro.Play();
+                    
                     flag = true;
                 }
             }

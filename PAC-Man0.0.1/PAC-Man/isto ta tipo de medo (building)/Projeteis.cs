@@ -20,7 +20,8 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         protected PacManState direction;
         static protected Texture2D projectileTEX;
         static public Texture2D[] splash;
-        static public SoundEffect mob, ricochet;
+        static public SoundEffect mob;
+       1static public SoundEffect ricochet;
         private float intervalo = 0.08f, timer;
         private int currentFrame = 0;
         private Vector2 originDraw;
@@ -50,7 +51,8 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             splash[5] = content.Load<Texture2D>("splash2");
             splash[6] = content.Load<Texture2D>("splash1");
             mob = content.Load<SoundEffect>("mob_boom");
-           ricochet = content.Load<SoundEffect>("ricochet");
+            ricochet = content.Load<SoundEffect>("Ricochet");
+           
 
         }
 
@@ -88,10 +90,12 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 rect = new Rectangle(0, 0, Rec.Width, Rec.Height);
                 visible = false;
                 ExplosionSplash = true;
-                
+
+
                 while (timer >= intervalo)
                 {
                     currentFrame++;
+
                     if (currentFrame >= (7))
                     {
                         ExplosionSplash = false;
@@ -100,6 +104,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                     timer = 0;
                 }
             }
+            
             if (CheckCollisionsProjectileMOBS(nextPosition) != null && visible == true)
             {   
                 visible = false;
@@ -140,7 +145,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 Rec = new Rectangle((int)Math.Round(_position.X), (int)Math.Round(_position.Y), 15, 15);
             }
             if (ExplosionSplash == true && nextPosition != new Vector2(0, 0))
-            {   
+            {
 
                 if (direction == PacManState.GoingDown)
                 {
@@ -182,6 +187,8 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 if (rect.Intersects(rectangle) && rect != rectangle)
                 {
                    collidingWith.Add(rectangle);
+
+
                 }
             }
             return collidingWith;

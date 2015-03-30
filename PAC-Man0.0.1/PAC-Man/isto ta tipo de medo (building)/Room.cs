@@ -58,7 +58,6 @@ namespace PAC_Man
         private bool mazeCreated = false;
         private List<Texture2D> texturas = new List<Texture2D>();
         public Texture2D[] Portal;
-        public Song portal;
         private Texture2D NoFOOD1;
         private int currentFrame = 0, currentFrameTexturas = 0, currentFrameBigFood = 0;
         private float timer, intervalo = 0.12f, timerTexturas, texturaFood;
@@ -93,7 +92,6 @@ namespace PAC_Man
             
             
             square3 = content.Load<Texture2D>("square3");
-            portal = content.Load<Song>("portal");
 
 
 
@@ -153,6 +151,8 @@ namespace PAC_Man
                         spriteBatch.Draw(NoFOOD1, new Rectangle(x * 20, y * 20, 20, 20), Color.Black);
                     if (board[y,x] == 7)
                         spriteBatch.Draw(Portal[currentFrame], new Rectangle(x * 20, y * 20, 20, 20), Color.White);
+                    
+                    
                 }
             }
             mazeCreated = true;
@@ -164,7 +164,7 @@ namespace PAC_Man
             timerTexturas += deltaTime;
             timer += deltaTime;
             texturaFood += deltaTime;
-            MediaPlayer.Play(portal);
+
             if (timer >= intervalo)
             {
                 currentFrame++;

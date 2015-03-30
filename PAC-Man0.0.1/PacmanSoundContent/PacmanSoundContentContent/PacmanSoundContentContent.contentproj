@@ -77,13 +77,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="portal.mp3">
-      <Name>portal</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="tiro.wav">
       <Name>tiro</Name>
       <Importer>WavImporter</Importer>

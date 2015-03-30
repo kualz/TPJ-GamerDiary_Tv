@@ -66,6 +66,7 @@ namespace PAC_Man
                     case 0:
                         //if(isRunning == true)
                         game.gamestate = Game1.GameState.running;
+                        MediaPlayer.Play(songame);
 
                         break;
                     case 1:
@@ -74,7 +75,8 @@ namespace PAC_Man
 
                             game.loadReset();
                             game.gamestate = Game1.GameState.running;
-    
+                            MediaPlayer.Play(songame);
+
                         }
                         break;
                     case 2:
@@ -93,6 +95,7 @@ namespace PAC_Man
                 if (selectedOption != i)
                 {
                     spriteBatch.DrawString(spriteFont, Options[i], new Vector2(100, 100 + i * 40), Color.Black);
+
                     
                 }
                 else
