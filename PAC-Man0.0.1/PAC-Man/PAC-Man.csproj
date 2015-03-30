@@ -210,6 +210,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PacmanSoundContent\PacmanSoundContent\PacmanSoundContent.csproj">
+      <Project>{fb336acf-5da9-4375-aaaf-69fde9a6eb5a}</Project>
+      <Name>PacmanSoundContent</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

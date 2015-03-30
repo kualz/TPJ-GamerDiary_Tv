@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Media;
 #endregion
 
 namespace PAC_Man
@@ -40,7 +40,7 @@ namespace PAC_Man
         private Mobs mobs5;
         private Mobs mobs6;
         private Camera2D camera;
-       
+        Song songame;
         public Game1()
             : base()
         {       
@@ -102,6 +102,7 @@ namespace PAC_Man
 
             Score = Content.Load<SpriteFont>("MyFont");
             Lifes = Content.Load<SpriteFont>("MyFont");
+            songame= Content.Load<Song>("songame");
         }
 
         public void loadReset()
@@ -148,6 +149,7 @@ namespace PAC_Man
 
             Score = Content.Load<SpriteFont>("MyFont");
             Lifes = Content.Load<SpriteFont>("MyFont");
+            songame= Content.Load<Song>("Transistor");
 
         }
 
@@ -155,6 +157,7 @@ namespace PAC_Man
         {
             if (menuScene.isRunning == false)
                 Load();
+
         }
         
         protected override void UnloadContent()
@@ -171,6 +174,7 @@ namespace PAC_Man
                 }
                 if (gamestate == GameState.running)
                 {
+
                     room.updateportal(gameTime);
                     novopac.Update(gameTime, room, camera);
                     mobs.Update(gameTime);
@@ -181,11 +185,13 @@ namespace PAC_Man
                     mobs4.Update(gameTime);
                     mobs5.Update(gameTime);
                     mobs6.Update(gameTime);
+
                     if (room.WinTest())
                         gamestate = GameState.Win;
                     if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     {
                         gamestate = GameState.MenuScene;
+
                     }
                  }
             base.Update(gameTime); 
@@ -208,6 +214,7 @@ namespace PAC_Man
                         spriteBatch.DrawString(Score, "GAME OVER", new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 80), Color.White);
                         spriteBatch.DrawString(Score, "Score: " + objectpacman.score, new Vector2(novopac.ReturnPosPacmanCamera().X - 50, novopac.ReturnPosPacmanCamera().Y - 50), Color.White);
                         gamestate = GameState.MenuScene;
+ 
                     }
                     if (gamestate == GameState.Win)
                     {
@@ -231,11 +238,17 @@ namespace PAC_Man
                         spriteBatch.DrawString(Score, "Lifes: " + objectpacman.lifes, new Vector2(camera.Position.X + 120, camera.Position.Y + 180), Color.White);
                         if (novopac.gamestateLOST() == true)
                             gamestate = GameState.gameOver;
+
+
                     }
                     spriteBatch.End();
+                    
                 }
             base.Draw(gameTime);
         }
 
     }
+   
+  
 }
+

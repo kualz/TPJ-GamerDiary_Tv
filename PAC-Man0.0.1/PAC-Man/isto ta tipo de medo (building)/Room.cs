@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +58,7 @@ namespace PAC_Man
         private bool mazeCreated = false;
         private List<Texture2D> texturas = new List<Texture2D>();
         public Texture2D[] Portal;
+        public Song portal;
         private Texture2D NoFOOD1;
         private int currentFrame = 0, currentFrameTexturas = 0, currentFrameBigFood = 0;
         private float timer, intervalo = 0.12f, timerTexturas, texturaFood;
@@ -90,6 +93,7 @@ namespace PAC_Man
             
             
             square3 = content.Load<Texture2D>("square3");
+            portal = content.Load<Song>("portal");
 
 
 
@@ -118,7 +122,7 @@ namespace PAC_Man
                         }
                     }
                 }
-            }
+            } 
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -160,6 +164,7 @@ namespace PAC_Man
             timerTexturas += deltaTime;
             timer += deltaTime;
             texturaFood += deltaTime;
+            MediaPlayer.Play(portal);
             if (timer >= intervalo)
             {
                 currentFrame++;

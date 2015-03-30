@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,6 +20,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         protected PacManState direction;
         static protected Texture2D projectileTEX;
         static public Texture2D[] splash;
+        static public SoundEffect mob, ricochet;
         private float intervalo = 0.08f, timer;
         private int currentFrame = 0;
         private Vector2 originDraw;
@@ -47,6 +49,8 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
             splash[4] = content.Load<Texture2D>("splash3");
             splash[5] = content.Load<Texture2D>("splash2");
             splash[6] = content.Load<Texture2D>("splash1");
+            mob = content.Load<SoundEffect>("mob_boom");
+           ricochet = content.Load<SoundEffect>("ricochet");
 
         }
 
@@ -84,6 +88,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 rect = new Rectangle(0, 0, Rec.Width, Rec.Height);
                 visible = false;
                 ExplosionSplash = true;
+                
                 while (timer >= intervalo)
                 {
                     currentFrame++;
@@ -100,8 +105,10 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 visible = false;
                 CheckCollisionsProjectileMOBS(nextPosition).destroyFuckinMob();
                 _Cam.ShakeItOff();
+                mob.Play();
                 nextPosition = new Vector2(0, 0);
             }
+           
             if (_position.X < 533 && _position.X > 529 && _position.Y > 275 && _position.Y < 283) nextPosition = new Vector2(15, 280);
             if (_position.X < 15 && _position.Y > 275 && _position.Y < 285) nextPosition = new Vector2(26 * 20, 280);
             _position = nextPosition;
@@ -110,6 +117,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
 
         public void draw(SpriteBatch spriteBatch)
         {
+            
             if (visible)
             {
                 if (direction == PacManState.GoingDown)
@@ -132,11 +140,13 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 Rec = new Rectangle((int)Math.Round(_position.X), (int)Math.Round(_position.Y), 15, 15);
             }
             if (ExplosionSplash == true && nextPosition != new Vector2(0, 0))
-            {
+            {   
+
                 if (direction == PacManState.GoingDown)
                 {
                     aux = new Vector2(aux.X + 10, aux.Y + 3);
                     spriteBatch.Draw(splash[currentFrame], aux, null, Color.White, (float)(Math.PI / 2), new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
+                
                 }
                 if (direction == PacManState.GoingLeft)
                 {
@@ -150,9 +160,11 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
                 }
                 if (direction == PacManState.GoingUp)
                 {
-                    aux = new Vector2(aux.X + 10, aux.Y + 10);
+                    aux = new Vector2(aux.X + 10, aux.Y + 10);                    
                     spriteBatch.Draw(splash[currentFrame], aux, null, Color.White, (float)(-Math.PI / 2), new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
-                }           
+                }  
+             
+                
             }
 
         }
@@ -166,12 +178,15 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
 
             foreach (var rectangle in Collisions.Rectangles)
             {
+
                 if (rect.Intersects(rectangle) && rect != rectangle)
                 {
-                    collidingWith.Add(rectangle);
+                   collidingWith.Add(rectangle);
                 }
             }
             return collidingWith;
+
+            
         }
 
 
@@ -182,12 +197,13 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         {
             List<Rectangle> Collinding = new List<Rectangle>();
             rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), Rec.Width, Rec.Height);
-
+            
             foreach (Mobs Ghost in Collisions.Phantoms)
-            {
+            {   
                 if (rect.Intersects(Ghost.returnrecMob()) && rect != Ghost.returnrecMob())
                 {
                     return Ghost;
+                    
                 }
             }
             return null;

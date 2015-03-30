@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAC-Man", "PAC-Man\PAC-Man.csproj", "{737567CF-2339-4751-B23A-33E61F7A79FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacmanSoundContent", "PacmanSoundContent\PacmanSoundContent\PacmanSoundContent.csproj", "{FB336ACF-5DA9-4375-AAAF-69FDE9A6EB5A}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "PacmanSoundContentContent", "PacmanSoundContent\PacmanSoundContentContent\PacmanSoundContentContent.contentproj", "{4609FBCD-55FD-453C-91FE-53882A8BB0BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,12 @@ Global
 		{737567CF-2339-4751-B23A-33E61F7A79FD}.Debug|x86.Build.0 = Debug|x86
 		{737567CF-2339-4751-B23A-33E61F7A79FD}.Release|x86.ActiveCfg = Release|x86
 		{737567CF-2339-4751-B23A-33E61F7A79FD}.Release|x86.Build.0 = Release|x86
+		{FB336ACF-5DA9-4375-AAAF-69FDE9A6EB5A}.Debug|x86.ActiveCfg = Debug|x86
+		{FB336ACF-5DA9-4375-AAAF-69FDE9A6EB5A}.Debug|x86.Build.0 = Debug|x86
+		{FB336ACF-5DA9-4375-AAAF-69FDE9A6EB5A}.Release|x86.ActiveCfg = Release|x86
+		{FB336ACF-5DA9-4375-AAAF-69FDE9A6EB5A}.Release|x86.Build.0 = Release|x86
+		{4609FBCD-55FD-453C-91FE-53882A8BB0BA}.Debug|x86.ActiveCfg = Debug|x86
+		{4609FBCD-55FD-453C-91FE-53882A8BB0BA}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

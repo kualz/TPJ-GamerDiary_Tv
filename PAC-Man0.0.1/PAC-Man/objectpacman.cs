@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -33,6 +34,9 @@ namespace PAC_Man
         public SpriteFont timer1, timer2;
         public Texture2D[] textures;
         public Texture2D[] texturesEmpower;
+        public SoundEffect coin1;
+        public SoundEffect coin10;
+        public SoundEffect megatiro;
         private float speed;
         private int TextureSize = 19;
         private Rectangle Rec;
@@ -78,6 +82,9 @@ namespace PAC_Man
 
             timer1 = content.Load<SpriteFont>("MyFont");
             timer2 = content.Load<SpriteFont>("Myfont");
+            coin1 = content.Load<SoundEffect>("coin1");
+            coin10 = content.Load<SoundEffect>("coin10");
+            megatiro = content.Load<SoundEffect>("tiro");
         }
 
         public void ResetPacVariables()
@@ -130,6 +137,7 @@ namespace PAC_Man
                 if (pacPow == PacManPower.Empower && tiros.returnVis() == false)
                 {              
                     tiros = new Projeteis(nextPosition, 200, PacMove, cam);
+                    megatiro.Play();
                     flag = true;
                 }
             }
@@ -248,18 +256,22 @@ namespace PAC_Man
 
             if (room.Checkcomida(position) == 5)
             {
+                coin1.Play();
                 room.DestroySquare(position);
                 score += 1;            
             }
             if (room.Checkcomida(position) == 4)
             {
                 if (pacPow == PacManPower.Empower)
-                    timerPower = 5;
+                timerPower = 5;
+                   
+            
                 else
                 {
                     pacPow = PacManPower.Empower;
                     tiros = new Projeteis(new Vector2(270,320), 0, PacMove, cam);
                     superspeed = 0.3f;
+                    coin10.Play();
                     room.DestroySquare(position);
                     score += 5;
                 }
