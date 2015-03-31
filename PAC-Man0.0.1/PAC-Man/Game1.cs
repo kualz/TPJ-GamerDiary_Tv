@@ -168,6 +168,11 @@ namespace PAC_Man
         protected override void Update(GameTime gameTime)
         {
             Input.Update();
+
+                if (Input.IsPressed(Keys.Escape))
+                {
+                MediaPlayer.Volume = 0.2f;
+                }
                 if (gamestate == GameState.MenuScene)
                 {
                     menuScene.Update(gameTime, this);

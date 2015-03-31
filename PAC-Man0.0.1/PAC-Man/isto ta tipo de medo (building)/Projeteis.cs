@@ -21,7 +21,7 @@ namespace PAC_Man.isto_ta_tipo_de_medo__building_
         static protected Texture2D projectileTEX;
         static public Texture2D[] splash;
         static public SoundEffect mob;
-       1static public SoundEffect ricochet;
+        static public SoundEffect ricochet;
         private float intervalo = 0.08f, timer;
         private int currentFrame = 0;
         private Vector2 originDraw;
