@@ -23,9 +23,7 @@ namespace PAC_Man
         public static bool auxMenu = false;
 
 
-        public MenuScene()
-        {
-           
+        public MenuScene(){   
             selectedOption = 0;
         }
 
